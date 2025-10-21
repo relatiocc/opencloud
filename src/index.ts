@@ -1,4 +1,5 @@
 import { HttpClient, HttpOptions } from "./http";
+import { Groups } from "./resources/groups";
 import { Users } from "./resources/users";
 
 /**
@@ -34,6 +35,7 @@ export interface OpenCloudConfig {
 export class OpenCloud {
   /** Access to Users API endpoints */
   public users: Users;
+  public groups: Groups;
 
   /**
    * Creates a new OpenCloud SDK client instance.
@@ -56,6 +58,7 @@ export class OpenCloud {
     });
 
     this.users = new Users(http);
+    this.groups = new Groups(http);
   }
 }
 
@@ -64,3 +67,4 @@ export * from "./errors";
 export type { HttpOptions } from "./http";
 
 export { Users } from "./resources/users";
+export { Groups } from "./resources/groups";

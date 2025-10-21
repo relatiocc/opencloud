@@ -209,7 +209,7 @@ export interface InventoryItem {
 export interface JoinRequestItem {
   path: string;
   createTime: string;
-  user: string
+  user: string;
 }
 
 export interface Group {
@@ -224,7 +224,6 @@ export interface Group {
   publicEntryAllowed: boolean;
   locked: boolean;
   verified: boolean;
-
 }
 
 export interface GroupMembershipItem {
@@ -232,9 +231,12 @@ export interface GroupMembershipItem {
   createTime: string;
   updateTime: string;
   user: string;
-  role: string
+  role: string;
 }
 export type InventoryItemsPage = Page<InventoryItem, "inventoryItems">;
 export type AssetQuotasPage = Page<AssetQuota, "assetQuotas">;
 export type JoinRequestItemsPage = Page<JoinRequestItem, "joinRequestItems">;
-export type GroupMembershipItemPage = Page<GroupMembershipItem, "groupMembershipItems">;
+export type GroupMembershipItemPage = Page<
+  GroupMembershipItem,
+  "groupMembershipItems"
+>;
