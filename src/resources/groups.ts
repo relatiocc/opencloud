@@ -100,6 +100,7 @@ export class Groups {
    * @param options - List options for pagination
    * @param options.maxPageSize - Maximum items per page (default set by API)
    * @param options.pageToken - Token from previous response for next page
+   * @param options.filter - Filter expression (e.g., "role == 'groups/123/roles/7920705'")
    * @returns Promise resolving to a page of group membership items
    * @throws {AuthError} If API key is invalid
    * @throws {OpenCloudError} If the group is not found or other API error occurs
@@ -115,12 +116,13 @@ export class Groups {
    */
   async listGroupMemberships(
     groupId: string,
-    options: ListOptions = {},
+    options: ListOptions & { filter?: string } = {},
   ): Promise<GroupMembershipItemsPage> {
     const searchParams = new URLSearchParams();
     if (options.maxPageSize)
       searchParams.set("maxPageSize", options.maxPageSize.toString());
     if (options.pageToken) searchParams.set("pageToken", options.pageToken);
+    if (options.filter) searchParams.set("filter", options.filter);
 
     return this.http.request<GroupMembershipItemsPage>(
       `/cloud/v2/groups/${groupId}/memberships`,
