@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/relatiocc/opencloud/compare/v1.0.2...v1.1.0) (2025-10-21)
+
+
+### Features
+
+* **groups:** add opencloud group support ([32f46c8](https://github.com/relatiocc/opencloud/commit/32f46c80b5889282d257e2512e379b1fdcb4e737))
+
 ## [1.0.2](https://github.com/relatiocc/opencloud/compare/v1.0.1...v1.0.2) (2025-10-21)
 
 
