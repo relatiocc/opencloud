@@ -1,0 +1,29 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["src"],
+  "entryPointStrategy": "resolve",
+  "out": "docs",
+  "excludePrivate": true,
+  "excludeProtected": false,
+  "excludeExternals": true,
+  "readme": "README.md",
+  "name": "@relatiohq/opencloud",
+  "sort": ["source-order"],
+  "navigation": {
+    "includeCategories": true,
+    "includeGroups": true
+  },
+  "navigationLinks": {
+    "GitHub": "https://github.com/relatiocc/opencloud",
+    "Discord": "https://relatio.cc/discord"
+  },
+  "treatWarningsAsErrors": false,
+  "validation": {
+    "notExported": false,
+    "invalidLink": true,
+    "notDocumented": false
+  },
+  "visibilityFilters": {},
+  "hideGenerator": true,
+  "hostedBaseUrl": "https://opencloud.relatio.cc"
+}
