@@ -206,37 +206,5 @@ export interface InventoryItem {
   addTime: string;
 }
 
-export interface JoinRequestItem {
-  path: string;
-  createTime: string;
-  user: string;
-}
-
-export interface Group {
-  path: string;
-  createTime: string;
-  updateTime: string;
-  id: string;
-  displayName: string;
-  description: string;
-  owner: string;
-  membercount: number;
-  publicEntryAllowed: boolean;
-  locked: boolean;
-  verified: boolean;
-}
-
-export interface GroupMembershipItem {
-  path: string;
-  createTime: string;
-  updateTime: string;
-  user: string;
-  role: string;
-}
 export type InventoryItemsPage = Page<InventoryItem, "inventoryItems">;
 export type AssetQuotasPage = Page<AssetQuota, "assetQuotas">;
-export type JoinRequestItemsPage = Page<JoinRequestItem, "joinRequestItems">;
-export type GroupMembershipItemPage = Page<
-  GroupMembershipItem,
-  "groupMembershipItems"
->;
