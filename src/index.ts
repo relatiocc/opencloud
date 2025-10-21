@@ -63,8 +63,4 @@ export * from "./types";
 export * from "./errors";
 export type { HttpOptions } from "./http";
 
-/**
- * @internal
- * Users API resource class - use via `OpenCloud.users` property
- */
 export { Users } from "./resources/users";
