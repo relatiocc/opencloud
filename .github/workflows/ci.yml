@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-test:
+    name: Node ${{ matrix.node }} - ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [18, 20, 22]
+        os: [ubuntu-latest]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          run_install: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node }}
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prettier check
+        run: pnpm run lint:format --if-present
+
+      - name: ESLint
+        run: pnpm run lint --if-present
+
+      - name: TypeScript typecheck
+        run: pnpm run typecheck --if-present
+
+      - name: Unit tests with coverage
+        run: pnpm run coverage
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/lcov.info
+          flags: node-${{ matrix.node }}
+          name: node-${{ matrix.node }}-${{ matrix.os }}
+          fail_ci_if_error: false
+
+      - name: Upload coverage HTML
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage-${{ matrix.os }}-node${{ matrix.node }}
+          path: coverage/
+          if-no-files-found: error
+
+  summary:
+    if: always()
+    needs: [build-test]
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          if [ "${{ needs.build-test.result }}" != "success" ]; then
+            echo "At least one matrix job failed."
+            exit 1
+          fi
