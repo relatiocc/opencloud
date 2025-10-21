@@ -38,13 +38,13 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Prettier check
-        run: pnpm run lint:format --if-present
+        run: pnpm run lint:format
 
       - name: ESLint
-        run: pnpm run lint --if-present
+        run: pnpm run lint
 
       - name: TypeScript typecheck
-        run: pnpm run typecheck --if-present
+        run: pnpm run typecheck
 
       - name: Unit tests with coverage
         run: pnpm run coverage
