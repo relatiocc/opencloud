@@ -9,3 +9,5 @@ vitest.config.*
 .prettierrc*
 .eslintrc.*
 .github/
+coverage/
+docs/
