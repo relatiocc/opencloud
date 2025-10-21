@@ -1,7 +1,7 @@
 import { HttpClient } from "../http";
 import type {
   Group,
-  GroupMembershipItemPage,
+  GroupMembershipItemsPage,
   JoinRequestItemsPage,
   ListOptions,
 } from "../types";
@@ -23,7 +23,7 @@ export class Groups {
   /**
    * Retrieves a Roblox group's information by group ID.
    *
-   * @param groupId - The unique user ID (numeric string)
+   * @param groupId - The unique group ID (numeric string)
    * @returns Promise resolving to the groups's data
    * @throws {AuthError} If API key is invalid
    * @throws {OpenCloudError} If the group is not found or other API error occurs
@@ -116,13 +116,13 @@ export class Groups {
   async listGroupMemberships(
     groupId: string,
     options: ListOptions = {},
-  ): Promise<GroupMembershipItemPage> {
+  ): Promise<GroupMembershipItemsPage> {
     const searchParams = new URLSearchParams();
     if (options.maxPageSize)
       searchParams.set("maxPageSize", options.maxPageSize.toString());
     if (options.pageToken) searchParams.set("pageToken", options.pageToken);
 
-    return this.http.request<GroupMembershipItemPage>(
+    return this.http.request<GroupMembershipItemsPage>(
       `/cloud/v2/groups/${groupId}/memberships`,
       {
         method: "GET",
