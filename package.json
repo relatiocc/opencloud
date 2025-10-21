@@ -40,6 +40,9 @@
   "author": "@relatiohq",
   "license": "MIT",
   "packageManager": "pnpm@10.17.1",
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "@eslint/js": "^9.38.0",
     "@semantic-release/changelog": "^6.0.3",
