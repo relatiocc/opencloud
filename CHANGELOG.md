@@ -1,6 +1,5 @@
 ## [1.0.1](https://github.com/relatiocc/opencloud/compare/v1.0.0...v1.0.1) (2025-10-21)
 
-
 ### Bug Fixes
 
 * republish package ([d0576a1](https://github.com/relatiocc/opencloud/commit/d0576a1e1fd96fb5d032aa5449e3430432ef3a75))
@@ -9,7 +8,7 @@
 
 ### Features
 
-- **core:** implement OpenCloud TypeScript SDK core, HTTP client, and users resource ([45e4d1a](https://github.com/relatiocc/opencloud/commit/45e4d1a95de89f9e50ef236fbf153d1a77a83885))
+* **core:** implement OpenCloud TypeScript SDK core, HTTP client, and users resource ([45e4d1a](https://github.com/relatiocc/opencloud/commit/45e4d1a95de89f9e50ef236fbf153d1a77a83885))
 
 # Changelog
 
