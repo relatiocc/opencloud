@@ -1,8 +1,6 @@
 import { HttpClient } from "../http";
 import type {
-  AssetQuotasPage,
   Group,
-  GroupMembershipItem,
   GroupMembershipItemPage,
   JoinRequestItemsPage,
   ListOptions,
