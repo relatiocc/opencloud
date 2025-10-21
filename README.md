@@ -22,7 +22,7 @@ const client = new OpenCloud({
 });
 
 // Use the client
-const user = await client.users.getUser({ userId: "123456789" });
+const user = await client.users.get({ userId: "123456789" });
 ```
 
 ## Documentation
