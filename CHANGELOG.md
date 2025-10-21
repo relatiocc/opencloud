@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/relatiocc/opencloud/compare/v1.1.0...v1.2.0) (2025-10-21)
+
+
+### Features
+
+* **groups:** add filter option to listGroupMemberships method ([23ed344](https://github.com/relatiocc/opencloud/commit/23ed344c684feb0f0b4544fa78099c3a34e97f5b))
+
 # [1.1.0](https://github.com/relatiocc/opencloud/compare/v1.0.2...v1.1.0) (2025-10-21)
 
 
