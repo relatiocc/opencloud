@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/relatiocc/opencloud/compare/v1.2.0...v1.2.1) (2025-10-21)
+
+
+### Bug Fixes
+
+* **package:** correct exports configuration in package.json ([3538a8f](https://github.com/relatiocc/opencloud/commit/3538a8fb3cb288ea7b877bf98c7737e4dbc4471f))
+
 # [1.2.0](https://github.com/relatiocc/opencloud/compare/v1.1.0...v1.2.0) (2025-10-21)
 
 
