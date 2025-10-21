@@ -25,5 +25,6 @@
   },
   "visibilityFilters": {},
   "hideGenerator": true,
-  "hostedBaseUrl": "https://opencloud.relatio.cc"
+  "hostedBaseUrl": "https://opencloud.relatio.cc",
+  "cname": "opencloud.relatio.cc"
 }
