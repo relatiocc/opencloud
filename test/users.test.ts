@@ -1,7 +1,12 @@
 import { describe, it, expect } from "vitest";
 import { OpenCloud } from "../src";
 import { makeFetchMock } from "./_utils";
-import type { User, InventoryItemsPage, AssetQuotasPage } from "../src/types";
+import type {
+  User,
+  InventoryItemsPage,
+  AssetQuotasPage,
+  UserThumbnail,
+} from "../src/types";
 
 const baseUrl = "https://apis.roblox.com";
 
@@ -140,6 +145,62 @@ describe("Users", () => {
     expect(result.assetQuotas[0]?.assetType).toBe("IMAGE");
     expect(calls[0]?.url.toString()).toBe(
       `${baseUrl}/cloud/v2/users/123456789/asset-quotas?maxPageSize=10`,
+    );
+  });
+
+  it("GET /users/{id}:generateThumbnail", async () => {
+    const mockThumbnail: UserThumbnail = {
+      response: {
+        imageUri:
+          "https://tr.rbxcdn.com/30DAY-AvatarHeadshot-123456789-420x420-Png-00000000.png",
+      },
+    };
+
+    const { fetchMock, calls } = makeFetchMock([
+      { status: 200, body: mockThumbnail },
+    ]);
+    const openCloud = new OpenCloud({
+      apiKey: "test-api-key",
+      baseUrl,
+      fetchImpl: fetchMock,
+    });
+
+    const result = await openCloud.users.generateThumbnail("123456789", {
+      size: 420,
+      format: "PNG",
+      shape: "ROUND",
+    });
+
+    expect(result.response.imageUri).toBe(
+      "https://tr.rbxcdn.com/30DAY-AvatarHeadshot-123456789-420x420-Png-00000000.png",
+    );
+    expect(calls[0]?.url.toString()).toBe(
+      `${baseUrl}/cloud/v2/users/123456789:generateThumbnail?size=420&format=PNG&shape=ROUND`,
+    );
+  });
+
+  it("GET /users/{id}:generateThumbnail with default options", async () => {
+    const mockThumbnail: UserThumbnail = {
+      response: {
+        imageUri:
+          "https://tr.rbxcdn.com/30DAY-AvatarHeadshot-987654321-420x420-Png-00000000.png",
+      },
+    };
+
+    const { fetchMock, calls } = makeFetchMock([
+      { status: 200, body: mockThumbnail },
+    ]);
+    const openCloud = new OpenCloud({
+      apiKey: "test-api-key",
+      baseUrl,
+      fetchImpl: fetchMock,
+    });
+
+    const result = await openCloud.users.generateThumbnail("987654321");
+
+    expect(result.response.imageUri).toContain("AvatarHeadshot");
+    expect(calls[0]?.url.toString()).toBe(
+      `${baseUrl}/cloud/v2/users/987654321:generateThumbnail`,
     );
   });
 });

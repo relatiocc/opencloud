@@ -29,6 +29,21 @@ export interface User {
   };
 }
 
+export type ThumbnailFormat = "FORMAT_UNSPECIFIED" | "PNG" | "JPEG";
+export type ThumbnailShape = "SHAPE_UNSPECIFIED" | "ROUND" | "SQUARE";
+
+export interface GenerateThumbnailOptions {
+  size?: number;
+  format?: ThumbnailFormat;
+  shape?: ThumbnailShape;
+}
+
+export interface UserThumbnail {
+  response: {
+    imageUri: string;
+  };
+}
+
 export type QuotaType =
   | "QUOTA_TYPE_UNSPECIFIED"
   | "RATE_LIMIT_UPLOAD"

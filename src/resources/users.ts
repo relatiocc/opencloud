@@ -1,9 +1,11 @@
 import { HttpClient } from "../http";
 import type {
   AssetQuotasPage,
+  GenerateThumbnailOptions,
   InventoryItemsPage,
   ListOptions,
   User,
+  UserThumbnail,
 } from "../types";
 
 /**
@@ -38,6 +40,48 @@ export class Users {
    */
   async get(userId: string): Promise<User> {
     return this.http.request<User>(`/cloud/v2/users/${userId}`);
+  }
+
+  /**
+   * Generates and returns the URL for the user's avatar thumbnail.
+   *
+   * @param userId - The unique user ID (numeric string)
+   * @param options - Options for thumbnail generation
+   * @param options.size - Size of the thumbnail (supported values: 48, 50, 60, 75, 100, 110, 150, 180, 352, 420, 720 Default is 420)
+   * @param options.format - Format of the thumbnail
+   * @param options.shape - Shape of the thumbnail
+   * @returns Promise resolving to the user's thumbnail data
+   * @throws {AuthError} If API key is invalid
+   * @throws {OpenCloudError} If the user is not found or other API error occurs
+   *
+   * @example
+   * ```typescript
+   * const thumbnail = await client.users.generateThumbnail('123456789', {
+   *   size: 100,
+   *   format: 'PNG',
+   *   shape: 'ROUND'
+   * });
+   * console.log(thumbnail.response.imageUri);
+   * ```
+   *
+   * @see https://create.roblox.com/docs/cloud/reference/User#Cloud_GenerateUserThumbnail
+   */
+  async generateThumbnail(
+    userId: string,
+    options: GenerateThumbnailOptions = {},
+  ): Promise<UserThumbnail> {
+    const searchParams = new URLSearchParams();
+    if (options.size) searchParams.set("size", options.size.toString());
+    if (options.format) searchParams.set("format", options.format);
+    if (options.shape) searchParams.set("shape", options.shape);
+
+    return this.http.request<UserThumbnail>(
+      `/cloud/v2/users/${userId}:generateThumbnail`,
+      {
+        method: "GET",
+        searchParams,
+      },
+    );
   }
 
   /**
