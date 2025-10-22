@@ -19,6 +19,10 @@
   "engines": {
     "node": ">=18"
   },
+  "files": [
+    "dist",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsup",
     "test": "vitest run",
