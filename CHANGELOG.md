@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/relatiocc/opencloud/compare/v1.5.0...v1.6.0) (2025-10-22)
+
+
+### Features
+
+* **users:** add generateThumbnail method ([ff93a0c](https://github.com/relatiocc/opencloud/commit/ff93a0c2cdc7888ceb94763cfc88a688a6362511))
+
 # [1.5.0](https://github.com/relatiocc/opencloud/compare/v1.4.0...v1.5.0) (2025-10-22)
 
 
