@@ -31,6 +31,20 @@ export interface HttpOptions {
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 /**
+ * Safely parses error details from an API response.
+ * Returns undefined if the response body is not valid JSON.
+ */
+const parseErrorDetails = async (
+  response: Response,
+): Promise<OpenCloudError | undefined> => {
+  try {
+    return await response.json();
+  } catch {
+    return undefined;
+  }
+};
+
+/**
  * HTTP client for making requests to the Roblox Open Cloud API.
  * Handles authentication, retries, rate limiting, and error handling.
  */
@@ -99,8 +113,14 @@ export class HttpClient {
     for (let attempt = 0; attempt <= retry.attempts; attempt++) {
       const response = await this.fetcher(url, { ...init, headers });
 
-      if (response.status === 401 || response.status === 403)
-        throw new AuthError();
+      if (response.status === 401 || response.status === 403) {
+        const details = await parseErrorDetails(response);
+        throw new AuthError(
+          "Unauthorized: invalid or missing Open Cloud credentials",
+          response.status,
+          details,
+        );
+      }
 
       if (response.ok) {
         if (response.status === 204) return undefined as unknown as T;
@@ -120,21 +140,18 @@ export class HttpClient {
 
         if (response.status === 429) {
           const retryAfterHeader = response.headers.get("x-ratelimit-reset");
+          const details = await parseErrorDetails(response);
           throw new RateLimitError(
             "Rate limit exceeded",
             retryAfterHeader ? parseFloat(retryAfterHeader) : undefined,
+            details,
           );
         }
       }
 
-      let details: OpenCloudError | undefined = undefined;
-      try {
-        details = await response.json();
-      } catch {
-        // Ignore JSON parse errors
-      }
+      const details = await parseErrorDetails(response);
       throw new OpenCloudError(
-        details?.message ?? `HTTP ${response.status}`,
+        `HTTP ${response.status}`,
         response.status,
         details?.code,
         details,

@@ -38,9 +38,14 @@ export class RateLimitError extends OpenCloudError {
    *
    * @param message - Error message (defaults to "Rate limit exceeded")
    * @param retryAfter - Seconds until the rate limit resets
+   * @param details - Additional error details from the API response
    */
-  constructor(message = "Rate limit exceeded", retryAfter?: number) {
-    super(message, 429, "rate_limited");
+  constructor(
+    message = "Rate limit exceeded",
+    retryAfter?: number,
+    details?: unknown,
+  ) {
+    super(message, 429, "rate_limited", details);
     this.retryAfter = retryAfter;
   }
 }
@@ -54,10 +59,14 @@ export class AuthError extends OpenCloudError {
    * Creates a new AuthError instance.
    *
    * @param message - Error message (defaults to a helpful authentication error message)
+   * @param status - HTTP status code (401 or 403)
+   * @param details - Additional error details from the API response
    */
   constructor(
     message = "Unauthorized: invalid or missing Open Cloud credentials",
+    status = 401,
+    details?: unknown,
   ) {
-    super(message, 401, "unauthorized");
+    super(message, status, "unauthorized", details);
   }
 }
