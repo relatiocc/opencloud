@@ -1,7 +1,11 @@
 import { HttpClient } from "../http";
 import type {
   Group,
+  GroupMembershipItem,
   GroupMembershipItemsPage,
+  GroupRole,
+  GroupRolesPage,
+  GroupShout,
   JoinRequestItemsPage,
   ListOptions,
 } from "../types";
@@ -93,6 +97,64 @@ export class Groups {
   }
 
   /**
+   * Accept group join request by group ID and join request ID.
+   *
+   * @param groupId - The unique group ID (numeric string)
+   * @param joinRequestId - The unique join request ID (numeric string)
+   * @returns Promise resolving when the join request is accepted
+   * @throws {AuthError} If API key is invalid
+   * @throws {OpenCloudError} If the group or join request is not found or other API error occurs
+   *
+   * @example
+   * ```typescript
+   * await client.groups.acceptGroupJoinRequest('123456789', '987654321');
+   * console.log('Join request accepted');
+   * ```
+   *
+   * @see https://create.roblox.com/docs/cloud/reference/GroupJoinRequest#Cloud_AcceptGroupJoinRequest
+   */
+  async acceptGroupJoinRequest(
+    groupId: string,
+    joinRequestId: string,
+  ): Promise<void> {
+    await this.http.request(
+      `/cloud/v2/groups/${groupId}/join-requests/${joinRequestId}:accept`,
+      {
+        method: "POST",
+      },
+    );
+  }
+
+  /**
+   * Decline group join request by group ID and join request ID.
+   *
+   * @param groupId - The unique group ID (numeric string)
+   * @param joinRequestId - The unique join request ID (numeric string)
+   * @returns Promise resolving when the join request is declined
+   * @throws {AuthError} If API key is invalid
+   * @throws {OpenCloudError} If the group or join request is not found or other API error occurs
+   *
+   * @example
+   * ```typescript
+   * await client.groups.declineGroupJoinRequest('123456789', '987654321');
+   * console.log('Join request declined');
+   * ```
+   *
+   * @see https://create.roblox.com/docs/cloud/reference/GroupJoinRequest#Cloud_DeclineGroupJoinRequest
+   */
+  async declineGroupJoinRequest(
+    groupId: string,
+    joinRequestId: string,
+  ): Promise<void> {
+    await this.http.request(
+      `/cloud/v2/groups/${groupId}/join-requests/${joinRequestId}:decline`,
+      {
+        method: "POST",
+      },
+    );
+  }
+
+  /**
    * List group members in a group.
    * Supports pagination for high membercounts.
    *
@@ -108,7 +170,6 @@ export class Groups {
    * @example
    * ```typescript
    * const members = await client.groups.listGroupMemberships('123456789');
-   *
    * console.log(members)
    * ```
    *
@@ -129,6 +190,117 @@ export class Groups {
       {
         method: "GET",
         searchParams,
+      },
+    );
+  }
+
+  /**
+   * Get group shout by group ID.
+   *
+   * @param groupId - The unique group ID (numeric string)
+   * @returns Promise resolving to the group's shout data
+   * @throws {AuthError} If API key is invalid
+   * @throws {OpenCloudError} If the group is not found or other API error occurs
+   *
+   * @example
+   * ```typescript
+   * const shout = await client.groups.getGroupShout('123456789');
+   * console.log(shout.content); // "Welcome to the group!"
+   * ```
+   *
+   * @see https://create.roblox.com/docs/cloud/reference/GroupShout#Cloud_GetGroupShout
+   */
+  async getGroupShout(groupId: string): Promise<GroupShout> {
+    return this.http.request<GroupShout>(`/cloud/v2/groups/${groupId}/shout`);
+  }
+
+  /**
+   * List group roles by group ID.
+   *
+   * @param groupId - The unique group ID (numeric string)
+   * @param options - List options for pagination
+   * @param options.maxPageSize - Maximum items per page (default set by API)
+   * @param options.pageToken - Token from previous response for next page
+   * @returns Promise resolving to an array of group roles
+   * @throws {AuthError} If API key is invalid
+   * @throws {OpenCloudError} If the group is not found or other API error occurs
+   *
+   * @example
+   * ```typescript
+   * const roles = await client.groups.listGroupRoles('123456789');
+   * console.log(roles);
+   * ```
+   *
+   * @see https://create.roblox.com/docs/cloud/reference/GroupRole#Cloud_ListGroupRoles
+   */
+  async listGroupRoles(
+    groupId: string,
+    options: ListOptions = {},
+  ): Promise<GroupRolesPage> {
+    const searchParams = new URLSearchParams();
+
+    if (options.maxPageSize)
+      searchParams.set("maxPageSize", options.maxPageSize.toString());
+    if (options.pageToken) searchParams.set("pageToken", options.pageToken);
+
+    return this.http.request<GroupRolesPage>(
+      `/cloud/v2/groups/${groupId}/roles`,
+    );
+  }
+
+  /**
+   * Get group role by group ID and role ID.
+   *
+   * @param groupId - The unique group ID (numeric string)
+   * @param roleId - The unique role ID (numeric string)
+   * @returns Promise resolving to the group's role data
+   * @throws {AuthError} If API key is invalid
+   * @throws {OpenCloudError} If the group or role is not found or other API error occurs
+   *
+   * @example
+   * ```typescript
+   * const role = await client.groups.getGroupRole('123456789', '7920705');
+   * console.log(role.displayName); // "Admin"
+   * ```
+   *
+   * @see https://create.roblox.com/docs/cloud/reference/GroupRole#Cloud_GetGroupRole
+   */
+  async getGroupRole(groupId: string, roleId: string): Promise<GroupRole> {
+    return this.http.request<GroupRole>(
+      `/cloud/v2/groups/${groupId}/roles/${roleId}`,
+    );
+  }
+
+  /**
+   * Update group membership by group ID, membership ID and role ID.
+   *
+   * @param groupId - The unique group ID (numeric string)
+   * @param membershipId - The unique membership ID (numeric string)
+   * @param roleId - The unique role ID to assign (numeric string)
+   * @returns Promise resolving when the group membership is updated
+   * @throws {AuthError} If API key is invalid
+   * @throws {OpenCloudError} If the group, membership, or role is not found or other API error occurs
+   *
+   * @example
+   * ```typescript
+   * const groupMembership = await client.groups.updateGroupMembership('123456789', '456789123', '7920705');
+   * console.log(groupMembership.role);
+   * ```
+   *
+   * @see https://create.roblox.com/docs/cloud/reference/GroupMembership#Cloud_UpdateGroupMembership
+   */
+  async updateGroupMembership(
+    groupId: string,
+    membershipId: string,
+    roleId: string,
+  ): Promise<GroupMembershipItem> {
+    return this.http.request<GroupMembershipItem>(
+      `/cloud/v2/groups/${groupId}/memberships/${membershipId}`,
+      {
+        method: "PATCH",
+        body: JSON.stringify({
+          role: `groups/${groupId}/roles/${roleId}`,
+        }),
       },
     );
   }

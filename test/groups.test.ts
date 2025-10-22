@@ -4,7 +4,11 @@ import { makeFetchMock } from "./_utils";
 import type {
   Group,
   GroupMembershipItemsPage,
+  GroupMembershipItem,
   JoinRequestItemsPage,
+  GroupShout,
+  GroupRolesPage,
+  GroupRole,
 } from "../src/types";
 
 const baseUrl = "https://apis.roblox.com";
@@ -256,5 +260,257 @@ describe("Groups", () => {
     expect(url).toBe(
       `${baseUrl}/cloud/v2/groups/123456789/memberships?maxPageSize=100&pageToken=next-page-token`,
     );
+  });
+
+  it("GET /groups/{id}/memberships with filter", async () => {
+    const mockMemberships: GroupMembershipItemsPage = {
+      groupMemberships: [
+        {
+          path: "groups/123456789/memberships/1",
+          createTime: "2020-01-15T10:30:00.000Z",
+          updateTime: "2024-01-15T10:30:00.000Z",
+          user: "users/111111111",
+          role: "groups/123456789/roles/7920705",
+        },
+      ],
+    };
+
+    const { fetchMock, calls } = makeFetchMock([
+      { status: 200, body: mockMemberships },
+    ]);
+    const openCloud = new OpenCloud({
+      apiKey: "test-api-key",
+      baseUrl,
+      fetchImpl: fetchMock,
+    });
+
+    const result = await openCloud.groups.listGroupMemberships("123456789", {
+      filter: "role == 'groups/123/roles/7920705'",
+    });
+
+    expect(result.groupMemberships).toHaveLength(1);
+    expect(result.groupMemberships[0]?.role).toBe(
+      "groups/123456789/roles/7920705",
+    );
+    const url = calls[0]?.url.toString();
+    expect(url).toBe(
+      `${baseUrl}/cloud/v2/groups/123456789/memberships?filter=role+%3D%3D+%27groups%2F123%2Froles%2F7920705%27`,
+    );
+  });
+
+  it("POST /groups/{id}/join-requests/{joinRequestId}:accept", async () => {
+    const { fetchMock, calls } = makeFetchMock([{ status: 200, body: {} }]);
+    const openCloud = new OpenCloud({
+      apiKey: "test-api-key",
+      baseUrl,
+      fetchImpl: fetchMock,
+    });
+
+    await openCloud.groups.acceptGroupJoinRequest("123456789", "987654321");
+
+    expect(calls[0]?.url.toString()).toBe(
+      `${baseUrl}/cloud/v2/groups/123456789/join-requests/987654321:accept`,
+    );
+    expect(calls[0]?.init?.method).toBe("POST");
+  });
+
+  it("POST /groups/{id}/join-requests/{joinRequestId}:decline", async () => {
+    const { fetchMock, calls } = makeFetchMock([{ status: 200, body: {} }]);
+    const openCloud = new OpenCloud({
+      apiKey: "test-api-key",
+      baseUrl,
+      fetchImpl: fetchMock,
+    });
+
+    await openCloud.groups.declineGroupJoinRequest("123456789", "987654321");
+
+    expect(calls[0]?.url.toString()).toBe(
+      `${baseUrl}/cloud/v2/groups/123456789/join-requests/987654321:decline`,
+    );
+    expect(calls[0]?.init?.method).toBe("POST");
+  });
+
+  it("GET /groups/{id}/shout", async () => {
+    const mockShout: GroupShout = {
+      path: "groups/123456789/shout",
+      createTime: "2024-10-15T12:00:00.000Z",
+      updateTime: "2024-10-20T14:30:00.000Z",
+      content: "Welcome to our group! Check out our latest game update!",
+      poster: "users/987654321",
+    };
+
+    const { fetchMock, calls } = makeFetchMock([
+      { status: 200, body: mockShout },
+    ]);
+    const openCloud = new OpenCloud({
+      apiKey: "test-api-key",
+      baseUrl,
+      fetchImpl: fetchMock,
+    });
+
+    const result = await openCloud.groups.getGroupShout("123456789");
+
+    expect(result.content).toBe(
+      "Welcome to our group! Check out our latest game update!",
+    );
+    expect(result.poster).toBe("users/987654321");
+    expect(result.path).toBe("groups/123456789/shout");
+    expect(calls[0]?.url.toString()).toBe(
+      `${baseUrl}/cloud/v2/groups/123456789/shout`,
+    );
+  });
+
+  it("GET /groups/{id}/roles", async () => {
+    const mockRoles: GroupRolesPage = {
+      groupRoles: [
+        {
+          path: "groups/123456789/roles/1",
+          createTime: "2020-01-15T10:30:00.000Z",
+          updateTime: "2024-01-15T10:30:00.000Z",
+          id: "1",
+          displayName: "Guest",
+          description: "New members",
+          rank: 0,
+          memberCount: 50,
+          permissions: [],
+        },
+        {
+          path: "groups/123456789/roles/7920705",
+          createTime: "2020-01-15T10:30:00.000Z",
+          updateTime: "2024-01-15T10:30:00.000Z",
+          id: "7920705",
+          displayName: "Admin",
+          description: "Group administrators",
+          rank: 255,
+          memberCount: 5,
+          permissions: [],
+        },
+      ],
+      nextPageToken: "roles-token-abc",
+    };
+
+    const { fetchMock, calls } = makeFetchMock([
+      { status: 200, body: mockRoles },
+    ]);
+    const openCloud = new OpenCloud({
+      apiKey: "test-api-key",
+      baseUrl,
+      fetchImpl: fetchMock,
+    });
+
+    const result = await openCloud.groups.listGroupRoles("123456789");
+
+    expect(result.groupRoles).toHaveLength(2);
+    expect(result.groupRoles[0]?.displayName).toBe("Guest");
+    expect(result.groupRoles[1]?.displayName).toBe("Admin");
+    expect(result.groupRoles[1]?.rank).toBe(255);
+    expect(calls[0]?.url.toString()).toBe(
+      `${baseUrl}/cloud/v2/groups/123456789/roles`,
+    );
+  });
+
+  it("GET /groups/{id}/roles with pagination", async () => {
+    const mockRoles: GroupRolesPage = {
+      groupRoles: [
+        {
+          path: "groups/123456789/roles/2",
+          createTime: "2020-01-15T10:30:00.000Z",
+          updateTime: "2024-01-15T10:30:00.000Z",
+          id: "2",
+          displayName: "Member",
+          description: "Regular members",
+          rank: 1,
+          memberCount: 100,
+          permissions: [],
+        },
+      ],
+    };
+
+    const { fetchMock, calls } = makeFetchMock([
+      { status: 200, body: mockRoles },
+    ]);
+    const openCloud = new OpenCloud({
+      apiKey: "test-api-key",
+      baseUrl,
+      fetchImpl: fetchMock,
+    });
+
+    const result = await openCloud.groups.listGroupRoles("123456789", {
+      maxPageSize: 50,
+      pageToken: "page-token-xyz",
+    });
+
+    expect(result.groupRoles).toHaveLength(1);
+    expect(result.groupRoles[0]?.displayName).toBe("Member");
+    expect(calls[0]?.url.toString()).toBe(
+      `${baseUrl}/cloud/v2/groups/123456789/roles`,
+    );
+  });
+
+  it("GET /groups/{id}/roles/{roleId}", async () => {
+    const mockRole: GroupRole = {
+      path: "groups/123456789/roles/7920705",
+      createTime: "2020-01-15T10:30:00.000Z",
+      updateTime: "2024-01-15T10:30:00.000Z",
+      id: "7920705",
+      displayName: "Admin",
+      description: "Group administrators with full permissions",
+      rank: 255,
+      memberCount: 5,
+      permissions: [],
+    };
+
+    const { fetchMock, calls } = makeFetchMock([
+      { status: 200, body: mockRole },
+    ]);
+    const openCloud = new OpenCloud({
+      apiKey: "test-api-key",
+      baseUrl,
+      fetchImpl: fetchMock,
+    });
+
+    const result = await openCloud.groups.getGroupRole("123456789", "7920705");
+
+    expect(result.id).toBe("7920705");
+    expect(result.displayName).toBe("Admin");
+    expect(result.rank).toBe(255);
+    expect(result.memberCount).toBe(5);
+    expect(calls[0]?.url.toString()).toBe(
+      `${baseUrl}/cloud/v2/groups/123456789/roles/7920705`,
+    );
+  });
+
+  it("PATCH /groups/{id}/memberships/{membershipId}", async () => {
+    const mockMembership: GroupMembershipItem = {
+      path: "groups/123456789/memberships/456789123",
+      createTime: "2020-01-15T10:30:00.000Z",
+      updateTime: "2024-10-22T15:00:00.000Z",
+      user: "users/456789123",
+      role: "groups/123456789/roles/7920705",
+    };
+
+    const { fetchMock, calls } = makeFetchMock([
+      { status: 200, body: mockMembership },
+    ]);
+    const openCloud = new OpenCloud({
+      apiKey: "test-api-key",
+      baseUrl,
+      fetchImpl: fetchMock,
+    });
+
+    const result = await openCloud.groups.updateGroupMembership(
+      "123456789",
+      "456789123",
+      "7920705",
+    );
+
+    expect(result.user).toBe("users/456789123");
+    expect(result.role).toBe("groups/123456789/roles/7920705");
+    expect(result.path).toBe("groups/123456789/memberships/456789123");
+    expect(calls[0]?.url.toString()).toBe(
+      `${baseUrl}/cloud/v2/groups/123456789/memberships/456789123`,
+    );
+    expect(calls[0]?.init?.method).toBe("PATCH");
+    expect(calls[0]?.init?.body).toContain("groups/123456789/roles/7920705");
   });
 });
