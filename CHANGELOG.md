@@ -1,3 +1,11 @@
+# [1.7.0](https://github.com/relatiocc/opencloud/compare/v1.6.2...v1.7.0) (2025-10-22)
+
+
+### Features
+
+* add createNotification method to Users API client ([f16b17a](https://github.com/relatiocc/opencloud/commit/f16b17a2579d5c8be93937e6a34a12bc68f5d200))
+* add group join request acceptance and decline methods, group shout retrieval, and role management to Groups API client ([3b1eae3](https://github.com/relatiocc/opencloud/commit/3b1eae302bfbef5de85ff74e6f34e08790ed2d1a))
+
 ## [1.6.2](https://github.com/relatiocc/opencloud/compare/v1.6.1...v1.6.2) (2025-10-22)
 
 
