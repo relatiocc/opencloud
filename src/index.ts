@@ -1,6 +1,9 @@
+import { colors } from "./constants";
 import { HttpClient, HttpOptions } from "./http";
+import { Logger } from "./logger";
 import { Groups } from "./resources/groups";
 import { Users } from "./resources/users";
+import { VersionChecker } from "./version";
 
 /**
  * Configuration options for initializing the OpenCloud SDK client.
@@ -38,11 +41,41 @@ export class OpenCloud {
   public groups: Groups;
 
   /**
+   * Creates a new Logger instance.
+   */
+  public logger = new Logger();
+
+  /**
    * Creates a new OpenCloud SDK client instance.
    *
    * @param config - Configuration options for the client
    */
   constructor(config: OpenCloudConfig) {
+    const versionChecker = new VersionChecker();
+
+    (async () => {
+      const { upToDate, installedVersion, currentVersion } =
+        await versionChecker.isUpToDate("@relatiohq/opencloud");
+
+      if (!upToDate) {
+        if (installedVersion) {
+          let command = "npm install @relatiohq/opencloud@latest";
+
+          if (installedVersion.startsWith("yarn")) {
+            command = "yarn add @relatiohq/opencloud@latest";
+          }
+
+          if (installedVersion.startsWith("pnpm")) {
+            command = "pnpm add @relatiohq/opencloud@latest";
+          }
+
+          this.logger.warn(
+            `Version ${currentVersion} is available for @relatiohq/opencloud! Run ${colors.green}${colors.bright}${command}${colors.reset} to update.`,
+          );
+        }
+      }
+    })();
+
     const http = new HttpClient({
       baseUrl: config.baseUrl ?? "https://apis.roblox.com",
       retry: config.retry ?? {
