@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/relatiocc/opencloud/compare/v1.6.0...v1.6.1) (2025-10-22)
+
+
+### Bug Fixes
+
+* update user retrieval method in README example ([751f635](https://github.com/relatiocc/opencloud/commit/751f6351b4221754b2610bc56f8b5023363329f6))
+
 # [1.6.0](https://github.com/relatiocc/opencloud/compare/v1.5.0...v1.6.0) (2025-10-22)
 
 
