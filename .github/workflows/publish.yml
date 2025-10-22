@@ -34,6 +34,9 @@ jobs:
           node-version: "lts/*"
           cache: "pnpm"
 
+      - name: Upgrade npm (for OIDC)
+        run: npm i -g npm@^11.5.1
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -50,6 +53,9 @@ jobs:
           publish_dir: ./docs
           user_name: "github-actions[bot]"
           user_email: "github-actions[bot]@users.noreply.github.com"
+
+      - name: Verify the integrity of provenance attestations and registry signatures for installed dependencies
+        run: npm audit signatures
 
       - name: Release
         run: pnpm dlx semantic-release
