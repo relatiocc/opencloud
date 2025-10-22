@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/relatiocc/opencloud/compare/v1.3.0...v1.4.0) (2025-10-22)
+
+
+### Features
+
+* **package:** remove .npmignore and update package.json to include files for distribution ([878f700](https://github.com/relatiocc/opencloud/commit/878f70047c845506c86a0b45ea59df1d80cc7f52))
+
 # [1.3.0](https://github.com/relatiocc/opencloud/compare/v1.2.1...v1.3.0) (2025-10-22)
 
 
