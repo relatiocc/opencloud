@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/relatiocc/opencloud/compare/v1.2.1...v1.3.0) (2025-10-22)
+
+
+### Features
+
+* **build:** update build script to use tsup and add tsup configuration ([166550c](https://github.com/relatiocc/opencloud/commit/166550c37ccb2ba0ffff8413a1fbeeaa1e63b130))
+
 ## [1.2.1](https://github.com/relatiocc/opencloud/compare/v1.2.0...v1.2.1) (2025-10-21)
 
 
