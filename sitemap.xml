@@ -2,158 +2,158 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	<url>
 		<loc>https://opencloud.relatio.cc/index.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/modules.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/hierarchy.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/classes/OpenCloudError.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/classes/RateLimitError.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/classes/AuthError.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/interfaces/HttpOptions.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/interfaces/OpenCloudConfig.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/classes/OpenCloud.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/classes/Groups.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/classes/Users.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/types/Page.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/interfaces/ListOptions.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/interfaces/Group.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/interfaces/GroupMembershipItem.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/interfaces/JoinRequestItem.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/types/GroupMembershipItemsPage.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/types/JoinRequestItemsPage.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/types/SocialNetworkProfiles.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/types/SocialNetworkVisibility.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/interfaces/User.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/types/ThumbnailFormat.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/types/ThumbnailShape.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/interfaces/GenerateThumbnailOptions.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/interfaces/UserThumbnail.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/types/QuotaType.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/types/AssetType.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/types/QuotaPeriod.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/interfaces/AssetQuota.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/types/InventoryItemAssetType.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/types/InstanceState.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/interfaces/CollectibleDetails.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/interfaces/AssetDetails.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/interfaces/BadgeDetails.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/interfaces/GamePassDetails.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/interfaces/PrivateServerDetails.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/interfaces/InventoryItem.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/types/InventoryItemsPage.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 	<url>
 		<loc>https://opencloud.relatio.cc/types/AssetQuotasPage.html</loc>
-		<lastmod>2025-10-22T01:13:14.852Z</lastmod>
+		<lastmod>2025-10-22T01:26:39.315Z</lastmod>
 	</url>
 </urlset>
