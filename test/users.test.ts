@@ -6,6 +6,7 @@ import type {
   InventoryItemsPage,
   AssetQuotasPage,
   UserThumbnail,
+  UserNotificationResponse,
 } from "../src/types";
 
 const baseUrl = "https://apis.roblox.com";
@@ -202,5 +203,58 @@ describe("Users", () => {
     expect(calls[0]?.url.toString()).toBe(
       `${baseUrl}/cloud/v2/users/987654321:generateThumbnail`,
     );
+  });
+
+  it("POST /users/{id}/notifications", async () => {
+    const mockNotification: UserNotificationResponse = {
+      path: "users/123456789/notifications/5dd7024b-68e3-ac4d-8232-4217f86ca244",
+      id: "5dd7024b-68e3-ac4d-8232-4217f86ca244",
+    };
+
+    const { fetchMock, calls } = makeFetchMock([
+      { status: 200, body: mockNotification },
+    ]);
+    const openCloud = new OpenCloud({
+      apiKey: "test-api-key",
+      baseUrl,
+      fetchImpl: fetchMock,
+    });
+
+    const notificationBody = {
+      source: {
+        universe: "universes/96623001",
+      },
+      payload: {
+        type: "TYPE_UNSPECIFIED" as const,
+        messageId: "5dd7024b-68e3-ac4d-8232-4217f86ca244",
+        parameters: {
+          key: {
+            stringValue: "bronze egg",
+          },
+        },
+        joinExperience: {
+          launchData: "Launch Data",
+        },
+        analyticsData: {
+          category: "Bronze egg hatched",
+        },
+      },
+    };
+
+    const result = await openCloud.users.createNotification(
+      "123456789",
+      notificationBody,
+    );
+
+    expect(result.id).toBe("5dd7024b-68e3-ac4d-8232-4217f86ca244");
+    expect(result.path).toBe(
+      "users/123456789/notifications/5dd7024b-68e3-ac4d-8232-4217f86ca244",
+    );
+    expect(calls[0]?.url.toString()).toBe(
+      `${baseUrl}/cloud/v2/users/123456789/notifications`,
+    );
+    expect(calls[0]?.init?.method).toBe("POST");
+    expect(calls[0]?.init?.body).toContain("universes/96623001");
+    expect(calls[0]?.init?.body).toContain("bronze egg");
   });
 });

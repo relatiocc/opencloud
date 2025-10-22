@@ -5,6 +5,8 @@ import type {
   InventoryItemsPage,
   ListOptions,
   User,
+  UserNotificationBody,
+  UserNotificationResponse,
   UserThumbnail,
 } from "../types";
 
@@ -174,6 +176,54 @@ export class Users {
       {
         method: "GET",
         searchParams,
+      },
+    );
+  }
+
+  /**
+   * Sends a notification to a user.
+   *
+   * @param userId - The unique user ID (numeric string)
+   * @param body - The notification body containing source and payload
+   * @returns Promise resolving to the notification response
+   * @throws {AuthError} If API key is invalid
+   * @throws {OpenCloudError} If the user is not found or other API error occurs
+   *
+   * @example
+   * ```typescript
+   * const notification = await client.users.createNotification('123456789', {
+   *   source: {
+   *     universe: 'universes/96623001'
+   *   },
+   *   payload: {
+   *     type: "TYPE_UNSPECIFIED",
+   *     messageId: "5dd7024b-68e3-ac4d-8232-4217f86ca244",
+   *     parameters: {
+   *       key: {
+   *         stringValue: "bronze egg"
+   *       }
+   *     },
+   *     joinExperience: {
+   *       launchData: "Launch Data"
+   *     },
+   *     analyticsData: {
+   *       category: "Bronze egg hatched"
+   *     }
+   *   }
+   * });
+   * ```
+   *
+   * @see https://create.roblox.com/docs/cloud/reference/UserNotification#Cloud_CreateUserNotification
+   */
+  async createNotification(
+    userId: string,
+    body: UserNotificationBody,
+  ): Promise<UserNotificationResponse> {
+    return this.http.request<UserNotificationResponse>(
+      `/cloud/v2/users/${userId}/notifications`,
+      {
+        method: "POST",
+        body: JSON.stringify(body),
       },
     );
   }

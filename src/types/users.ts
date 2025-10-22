@@ -223,3 +223,31 @@ export interface InventoryItem {
 
 export type InventoryItemsPage = Page<InventoryItem, "inventoryItems">;
 export type AssetQuotasPage = Page<AssetQuota, "assetQuotas">;
+
+export type NotificationType = "TYPE_UNSPECIFIED" | "MOMENT";
+
+export interface UserNotificationSource {
+  universe: string;
+}
+
+export interface UserNotificationPayload {
+  type: NotificationType;
+  messageId: string;
+  parameters: Record<string, Record<string, string>>;
+  joinExperience: {
+    launchData: string;
+  };
+  analyticsData: {
+    category: string;
+  };
+}
+
+export interface UserNotificationResponse {
+  path: string;
+  id: string;
+}
+
+export interface UserNotificationBody {
+  source: UserNotificationSource;
+  payload: UserNotificationPayload;
+}
