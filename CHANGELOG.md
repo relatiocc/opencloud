@@ -1,3 +1,10 @@
+## [1.6.2](https://github.com/relatiocc/opencloud/compare/v1.6.1...v1.6.2) (2025-10-22)
+
+
+### Bug Fixes
+
+* republish package ([e97d903](https://github.com/relatiocc/opencloud/commit/e97d90376deb8d4355708569badfedcbf26ccda3))
+
 ## [1.6.1](https://github.com/relatiocc/opencloud/compare/v1.6.0...v1.6.1) (2025-10-22)
 
 
