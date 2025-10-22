@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/relatiocc/opencloud/compare/v1.4.0...v1.5.0) (2025-10-22)
+
+
+### Features
+
+* **errors:** make error classes include additional details from API responses ([231e828](https://github.com/relatiocc/opencloud/commit/231e8286c20d3427ca7c73998dc8ff6c9707b26d))
+
 # [1.4.0](https://github.com/relatiocc/opencloud/compare/v1.3.0...v1.4.0) (2025-10-22)
 
 
