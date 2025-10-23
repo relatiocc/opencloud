@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/relatiocc/opencloud/compare/v1.7.0...v1.8.0) (2025-10-23)
+
+
+### Features
+
+* implement buildFieldMask utility ([aba0a8e](https://github.com/relatiocc/opencloud/commit/aba0a8e7d0dc1013cc79b33b76044bcd83bf1734))
+
 # [1.7.0](https://github.com/relatiocc/opencloud/compare/v1.6.2...v1.7.0) (2025-10-22)
 
 
