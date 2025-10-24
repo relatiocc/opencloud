@@ -252,7 +252,10 @@ export interface UserNotificationBody {
   payload: UserNotificationPayload;
 }
 
-export type UserRestrictionsPage = Page<UserRestrictionResponse, "userRestrictions">;
+export type UserRestrictionsPage = Page<
+  UserRestrictionResponse,
+  "userRestrictions"
+>;
 export type UserRestrictionLogsPage = Page<UserRestrictionLog, "logs">;
 
 export interface GameJoinRestriction {

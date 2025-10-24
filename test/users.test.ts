@@ -276,21 +276,29 @@ describe("Users", () => {
             displayReason: "some display reason",
             excludeAltAccounts: false,
             startTime: "2023-07-05T12:34:56Z",
-            inherited: false
-          }
-        }
+            inherited: false,
+          },
+        },
       ],
-      nextPageToken: "token123"
+      nextPageToken: "token123",
     };
 
-    const { fetchMock, calls } = makeFetchMock([{ status: 200, body: mockResponse }]);
-    const openCloud = new OpenCloud({ apiKey: "test-api-key", baseUrl, fetchImpl: fetchMock });
+    const { fetchMock, calls } = makeFetchMock([
+      { status: 200, body: mockResponse },
+    ]);
+    const openCloud = new OpenCloud({
+      apiKey: "test-api-key",
+      baseUrl,
+      fetchImpl: fetchMock,
+    });
 
-    const result = await openCloud.users.listUserRestrictions("123", { maxPageSize: 10 });
+    const result = await openCloud.users.listUserRestrictions("123", {
+      maxPageSize: 10,
+    });
 
     expect(result).toEqual(mockResponse);
     expect(calls[0]?.url.toString()).toBe(
-      `${baseUrl}/cloud/v2/universes/123/user-restrictions?maxPageSize=10`
+      `${baseUrl}/cloud/v2/universes/123/user-restrictions?maxPageSize=10`,
     );
   });
 
@@ -306,18 +314,24 @@ describe("Users", () => {
         displayReason: "some display reason",
         excludeAltAccounts: false,
         startTime: "2023-07-05T12:34:56Z",
-        inherited: false
-      }
+        inherited: false,
+      },
     };
 
-    const { fetchMock, calls } = makeFetchMock([{ status: 200, body: mockResponse }]);
-    const openCloud = new OpenCloud({ apiKey: "test-api-key", baseUrl, fetchImpl: fetchMock });
+    const { fetchMock, calls } = makeFetchMock([
+      { status: 200, body: mockResponse },
+    ]);
+    const openCloud = new OpenCloud({
+      apiKey: "test-api-key",
+      baseUrl,
+      fetchImpl: fetchMock,
+    });
 
     const result = await openCloud.users.getUserRestriction("123", "1");
 
     expect(result).toEqual(mockResponse);
     expect(calls[0]?.url.toString()).toBe(
-      `${baseUrl}/cloud/v2/universes/123/user-restrictions/1`
+      `${baseUrl}/cloud/v2/universes/123/user-restrictions/1`,
     );
   });
 
@@ -327,20 +341,35 @@ describe("Users", () => {
       duration: "3s",
       privateReason: "some private reason",
       displayReason: "some display reason",
-      excludeAltAccounts: true
+      excludeAltAccounts: true,
     };
 
     const mockResponse: UserRestrictionResponse = {
       path: "universes/123/user-restrictions/123",
       user: "users/1",
       updateTime: "2023-07-05T12:34:56Z",
-      gameJoinRestriction: { ...body, startTime: "2023-07-05T12:34:56Z", inherited: false }
+      gameJoinRestriction: {
+        ...body,
+        startTime: "2023-07-05T12:34:56Z",
+        inherited: false,
+      },
     };
 
-    const { fetchMock, calls } = makeFetchMock([{ status: 200, body: mockResponse }]);
-    const openCloud = new OpenCloud({ apiKey: "test-api-key", baseUrl, fetchImpl: fetchMock });
+    const { fetchMock, calls } = makeFetchMock([
+      { status: 200, body: mockResponse },
+    ]);
+    const openCloud = new OpenCloud({
+      apiKey: "test-api-key",
+      baseUrl,
+      fetchImpl: fetchMock,
+    });
 
-    const result = await openCloud.users.updateUserRestriction("123", "1", body, "game_join_restriction");
+    const result = await openCloud.users.updateUserRestriction(
+      "123",
+      "1",
+      body,
+      "game_join_restriction",
+    );
 
     expect(result).toEqual(mockResponse);
     const url = new URL(calls[0]?.url.toString());
@@ -354,13 +383,19 @@ describe("Users", () => {
       duration: "3s",
       privateReason: "some private reason",
       displayReason: "some display reason",
-      excludeAltAccounts: true
+      excludeAltAccounts: true,
     };
 
     const { fetchMock } = makeFetchMock([]);
-    const openCloud = new OpenCloud({ apiKey: "test-api-key", baseUrl, fetchImpl: fetchMock });
+    const openCloud = new OpenCloud({
+      apiKey: "test-api-key",
+      baseUrl,
+      fetchImpl: fetchMock,
+    });
 
-    await expect(openCloud.users.updateUserRestriction("123", "1", body, "invalid")).rejects.toThrow();
+    await expect(
+      openCloud.users.updateUserRestriction("123", "1", body, "invalid"),
+    ).rejects.toThrow();
   });
 
   it("GET /universes/{id}/user-restrictions:listLogs", async () => {
@@ -383,22 +418,30 @@ describe("Users", () => {
               duration: "3s",
               privateReason: "some private reason",
               displayReason: "some display reason",
-              excludeAltAccounts: true
-            }
-          }
-        }
+              excludeAltAccounts: true,
+            },
+          },
+        },
       ],
-      nextPageToken: "def"
+      nextPageToken: "def",
     };
 
-    const { fetchMock, calls } = makeFetchMock([{ status: 200, body: mockResponse }]);
-    const openCloud = new OpenCloud({ apiKey: "test-api-key", baseUrl, fetchImpl: fetchMock });
+    const { fetchMock, calls } = makeFetchMock([
+      { status: 200, body: mockResponse },
+    ]);
+    const openCloud = new OpenCloud({
+      apiKey: "test-api-key",
+      baseUrl,
+      fetchImpl: fetchMock,
+    });
 
-    const result = await openCloud.users.listUserRestrictionLogs("123", { maxPageSize: 10 });
+    const result = await openCloud.users.listUserRestrictionLogs("123", {
+      maxPageSize: 10,
+    });
 
     expect(result).toEqual(mockResponse);
     expect(calls[0]?.url.toString()).toBe(
-      `${baseUrl}/cloud/v2/universes/123/user-restrictions:listLogs?maxPageSize=10`
+      `${baseUrl}/cloud/v2/universes/123/user-restrictions:listLogs?maxPageSize=10`,
     );
   });
 });

@@ -28,7 +28,7 @@ export class Users {
    *
    * @param http - HTTP client for making API requests
    */
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    * Retrieves a Roblox user's profile information by user ID.
@@ -235,29 +235,29 @@ export class Users {
   }
 
   /**
-  * List user restrictions for users that have ever been banned in either a universe or a specific place.
-  *
-  * *Requires `universe.user-restriction:read` scope.*
-  *
-  * @param universeId - The universe ID. (numeric string)
-  * @param options - List options including pagination and filtering
-  * @param options.maxPageSize - Maximum items per page (default set by API)
-  * @param options.pageToken - Token from previous response for next page
-  * @returns Promise resolving to the user restriction response
-  * @throws {AuthError} If API key is invalid
-  * @throws {OpenCloudError} If the universeId is invalid or other API error occurs
-  *
-  * @example
-  * ```typescript
-  * const userRestriction = await client.users.listUserRestrictions('123456789', { maxPageSize: 50 });
-  * console.log(userRestriction);
-  * ```
-  *
-  * @see https://create.roblox.com/docs/cloud/reference/UserRestriction#Cloud_UpdateUserRestriction__Using_Universes_Places
-  */
+   * List user restrictions for users that have ever been banned in either a universe or a specific place.
+   *
+   * *Requires `universe.user-restriction:read` scope.*
+   *
+   * @param universeId - The universe ID. (numeric string)
+   * @param options - List options including pagination and filtering
+   * @param options.maxPageSize - Maximum items per page (default set by API)
+   * @param options.pageToken - Token from previous response for next page
+   * @returns Promise resolving to the user restriction response
+   * @throws {AuthError} If API key is invalid
+   * @throws {OpenCloudError} If the universeId is invalid or other API error occurs
+   *
+   * @example
+   * ```typescript
+   * const userRestriction = await client.users.listUserRestrictions('123456789', { maxPageSize: 50 });
+   * console.log(userRestriction);
+   * ```
+   *
+   * @see https://create.roblox.com/docs/cloud/reference/UserRestriction#Cloud_UpdateUserRestriction__Using_Universes_Places
+   */
   async listUserRestrictions(
     universeId: string,
-    options: ListOptions = {}
+    options: ListOptions = {},
   ): Promise<UserRestrictionsPage> {
     const searchParams = new URLSearchParams();
     if (options.maxPageSize)
@@ -268,8 +268,8 @@ export class Users {
       `/cloud/v2/universes/${universeId}/user-restrictions`,
       {
         method: "GET",
-        searchParams
-      }
+        searchParams,
+      },
     );
   }
 
@@ -299,55 +299,61 @@ export class Users {
     return this.http.request<UserRestrictionResponse>(
       `/cloud/v2/universes/${universeId}/user-restrictions/${userRestrictionId}`,
       {
-        method: "GET"
-      }
+        method: "GET",
+      },
     );
   }
 
   /**
-  * Update the user restriction.
-  *
-  * *Requires `universe.user-restriction:write` scope.*
-  *
-  * @param universeId - The universe ID. (numeric string)
-  * @param userRestrictionId - The user ID. (numeric string)
-  * @param body - The user restriction body containing the payload
-  * @param updateMask - The list of fields to update; only "game_join_restriction" is supported
-  * @returns Promise resolving to the user restriction response
-  * @throws {AuthError} If API key is invalid
-  * @throws {OpenCloudError} If updateMask is invalid or an API error occurs
-  *
-  * @example
-  * ```typescript
-  * const userRestrction = await client.users.updateUserRestriction('123456789', '123456789', {
-  *   active: true,
-  *   duration: "3s",
-  *   privateReason: "some private reason",
-  *   displayReason: "some display reason",
-  *   excludeAltAccounts: true
-  * });
-  * ```
-  *
-  * @see https://create.roblox.com/docs/cloud/reference/UserRestriction#Cloud_UpdateUserRestriction__Using_Universes_Places
-  */
+   * Update the user restriction.
+   *
+   * *Requires `universe.user-restriction:write` scope.*
+   *
+   * @param universeId - The universe ID. (numeric string)
+   * @param userRestrictionId - The user ID. (numeric string)
+   * @param body - The user restriction body containing the payload
+   * @param updateMask - The list of fields to update; only "game_join_restriction" is supported
+   * @returns Promise resolving to the user restriction response
+   * @throws {AuthError} If API key is invalid
+   * @throws {OpenCloudError} If updateMask is invalid or an API error occurs
+   *
+   * @example
+   * ```typescript
+   * const userRestrction = await client.users.updateUserRestriction('123456789', '123456789', {
+   *   active: true,
+   *   duration: "3s",
+   *   privateReason: "some private reason",
+   *   displayReason: "some display reason",
+   *   excludeAltAccounts: true
+   * });
+   * ```
+   *
+   * @see https://create.roblox.com/docs/cloud/reference/UserRestriction#Cloud_UpdateUserRestriction__Using_Universes_Places
+   */
   async updateUserRestriction(
     universeId: string,
     userRestrictionId: string,
     body: GameJoinRestriction,
-    updateMask?: string
+    updateMask?: string,
   ): Promise<UserRestrictionResponse> {
     const idempotencyKey = uuidv4();
     const firstSent = new Date().toISOString();
 
     if (updateMask && updateMask !== "game_join_restriction") {
-      throw new OpenCloudError(`Invalid update mask: "${updateMask}". Only "game_join_restriction" or none is supported.`, 400, "INVALID_ARGUMENT", {
-        field: "game_join_restriction", allowed: ["game_join_restriction"]
-      });
+      throw new OpenCloudError(
+        `Invalid update mask: "${updateMask}". Only "game_join_restriction" or none is supported.`,
+        400,
+        "INVALID_ARGUMENT",
+        {
+          field: "game_join_restriction",
+          allowed: ["game_join_restriction"],
+        },
+      );
     }
 
     const searchParams = new URLSearchParams({
       "idempotencyKey.key": idempotencyKey,
-      "idempotencyKey.firstSent": firstSent
+      "idempotencyKey.firstSent": firstSent,
     });
     if (updateMask) searchParams.append("updateMask", updateMask);
 
@@ -356,40 +362,40 @@ export class Users {
       {
         method: "PATCH",
         body: JSON.stringify(body),
-        searchParams
-      }
+        searchParams,
+      },
     );
   }
 
   /**
-  * List changes to UserRestriction resources within a given universe. This includes both universe-level and place-level restrictions.
-  * For universe-level restriction logs, the place field will be empty.
-  *
-  * *Requires `universe.user-restriction:read` scope.*
-  *
-  * @param universeId - The universe ID. (numeric string)
-  * @param options - List options including pagination and filtering
-  * @param options.maxPageSize - Maximum items per page (default set by API)
-  * @param options.pageToken - Token from previous response for next page
-  * @param options.filter - Filter expression (e.g., "user == 'users/123'" && "place == 'places/456'")
-  * @returns Promise resolving to the user restriction response
-  * @throws {AuthError} If API key is invalid
-  * @throws {OpenCloudError} If the universeId is invalid or other API error occurs
-  *
-  * @example
-  * ```typescript
-  * const userRestriction = await client.users.listUserRestrictions('123456789', {
-  *   maxPageSize: 50,
-  *   filter: `"user == 'users/123'" && "place == 'places/456'"`
-  * });
-  * console.log(userRestriction);
-  * ```
-  *
-  * @see https://create.roblox.com/docs/cloud/reference/UserRestriction#Cloud_UpdateUserRestriction__Using_Universes_Places
-  */
+   * List changes to UserRestriction resources within a given universe. This includes both universe-level and place-level restrictions.
+   * For universe-level restriction logs, the place field will be empty.
+   *
+   * *Requires `universe.user-restriction:read` scope.*
+   *
+   * @param universeId - The universe ID. (numeric string)
+   * @param options - List options including pagination and filtering
+   * @param options.maxPageSize - Maximum items per page (default set by API)
+   * @param options.pageToken - Token from previous response for next page
+   * @param options.filter - Filter expression (e.g., "user == 'users/123'" && "place == 'places/456'")
+   * @returns Promise resolving to the user restriction response
+   * @throws {AuthError} If API key is invalid
+   * @throws {OpenCloudError} If the universeId is invalid or other API error occurs
+   *
+   * @example
+   * ```typescript
+   * const userRestriction = await client.users.listUserRestrictions('123456789', {
+   *   maxPageSize: 50,
+   *   filter: `"user == 'users/123'" && "place == 'places/456'"`
+   * });
+   * console.log(userRestriction);
+   * ```
+   *
+   * @see https://create.roblox.com/docs/cloud/reference/UserRestriction#Cloud_UpdateUserRestriction__Using_Universes_Places
+   */
   async listUserRestrictionLogs(
     universeId: string,
-    options: ListOptions & { filter?: string } = {}
+    options: ListOptions & { filter?: string } = {},
   ): Promise<UserRestrictionLogsPage> {
     const searchParams = new URLSearchParams();
     if (options.maxPageSize)
@@ -401,8 +407,8 @@ export class Users {
       `/cloud/v2/universes/${universeId}/user-restrictions:listLogs`,
       {
         method: "GET",
-        searchParams
-      }
+        searchParams,
+      },
     );
   }
 }
