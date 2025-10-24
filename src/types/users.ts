@@ -251,3 +251,39 @@ export interface UserNotificationBody {
   source: UserNotificationSource;
   payload: UserNotificationPayload;
 }
+
+export type UserRestrictionsPage = Page<UserRestrictionResponse, "userRestrictions">;
+export type UserRestrictionLogsPage = Page<UserRestrictionLog, "logs">;
+
+export interface GameJoinRestriction {
+  active: boolean;
+  duration?: string;
+  privateReason?: string;
+  displayReason?: string;
+  excludeAltAccounts?: boolean;
+}
+
+export interface GameJoinRestrictionResponse extends GameJoinRestriction {
+  startTime: string;
+  inherited: boolean;
+}
+
+export interface UserRestrictionLog extends GameJoinRestriction {
+  user: string;
+  place: string;
+  moderator: {
+    robloxUser: string;
+  };
+  createTime: string;
+  startTime: string;
+  restrictionType: {
+    gameJoinRestriction: GameJoinRestriction;
+  };
+}
+
+export interface UserRestrictionResponse {
+  path: string;
+  updateTime: string;
+  user: string;
+  gameJoinRestriction: GameJoinRestrictionResponse;
+}
