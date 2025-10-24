@@ -1,5 +1,6 @@
 import { HttpClient, HttpOptions } from "./http";
 import { Groups } from "./resources/groups";
+import { Universes } from "./resources/universes";
 import { Users } from "./resources/users";
 import type { AuthConfig } from "./types/auth";
 
@@ -45,8 +46,9 @@ export interface OpenCloudConfig {
  * ```
  */
 export class OpenCloud {
-  public users!: Users;
   public groups!: Groups;
+  public universes!: Universes;
+  public users!: Users;
   private http!: HttpClient;
 
   /**
@@ -77,8 +79,9 @@ export class OpenCloud {
    * @private
    */
   private initializeResources(http: HttpClient): void {
-    this.users = new Users(http);
     this.groups = new Groups(http);
+    this.universes = new Universes(http);
+    this.users = new Users(http);
   }
 
   /**
