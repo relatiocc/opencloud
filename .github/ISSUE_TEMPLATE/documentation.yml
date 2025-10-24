@@ -1,0 +1,66 @@
+name: 📚 Documentation Issue
+description: Report an issue with documentation or suggest improvements
+title: "[Docs]: "
+labels: ["documentation", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve our documentation!
+
+  - type: dropdown
+    id: doc-type
+    attributes:
+      label: Documentation Type
+      description: What type of documentation issue is this?
+      options:
+        - API Documentation
+        - README
+        - Contributing Guide
+        - Code Examples
+        - Type Definitions
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: Documentation Location
+      description: Where is the documentation issue? (URL, file path, or section name)
+      placeholder: "https://opencloud.relatio.cc/classes/Users.html or README.md"
+    validations:
+      required: true
+
+  - type: textarea
+    id: issue
+    attributes:
+      label: Issue Description
+      description: What's wrong or missing in the documentation?
+      placeholder: The documentation for X is unclear because...
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested Improvement
+      description: How should the documentation be improved?
+      placeholder: It should explain that...
+
+  - type: textarea
+    id: example
+    attributes:
+      label: Example (if applicable)
+      description: Provide an example of what the documentation should look like
+      render: markdown
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I have checked the latest version of the documentation
+          required: true
+        - label: I am willing to contribute a PR to fix this
+          required: false

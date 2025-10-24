@@ -1,0 +1,85 @@
+name: ✨ Feature Request
+description: Suggest a new feature or enhancement for the SDK
+title: "[Feature]: "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a new feature! Please provide as much detail as possible.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: Is your feature request related to a problem? Please describe.
+      placeholder: I'm frustrated when...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe the solution you'd like to see
+      placeholder: I would like to be able to...
+    validations:
+      required: true
+
+  - type: textarea
+    id: api-design
+    attributes:
+      label: Proposed API Design
+      description: If applicable, provide a code example of how you'd like to use this feature
+      render: typescript
+      placeholder: |
+        // Example usage:
+        const result = await client.newFeature.doSomething({
+          option: "value"
+        });
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Describe any alternative solutions or features you've considered
+      placeholder: I also considered...
+
+  - type: dropdown
+    id: roblox-api
+    attributes:
+      label: Is this related to a Roblox Open Cloud API endpoint?
+      description: Select yes if this feature requires support for a new or existing Roblox API
+      options:
+        - "Yes - New Roblox API endpoint"
+        - "Yes - Existing Roblox API endpoint"
+        - "No - SDK improvement"
+    validations:
+      required: true
+
+  - type: input
+    id: api-documentation
+    attributes:
+      label: Roblox API Documentation Link
+      description: If applicable, provide a link to the Roblox Open Cloud API documentation
+      placeholder: "https://create.roblox.com/docs/cloud/..."
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Add any other context, screenshots, or examples about the feature request
+      placeholder: This would be useful for...
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      description: Please confirm the following
+      options:
+        - label: I have searched for similar feature requests before opening this one
+          required: true
+        - label: I have checked the documentation to ensure this feature doesn't already exist
+          required: true
+        - label: I am willing to contribute a PR for this feature
+          required: false
