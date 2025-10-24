@@ -260,10 +260,10 @@ export type UserRestrictionLogsPage = Page<UserRestrictionLog, "logs">;
 
 export interface GameJoinRestriction {
   active: boolean;
-  duration?: string;
-  privateReason?: string;
-  displayReason?: string;
-  excludeAltAccounts?: boolean;
+  duration: string;
+  privateReason: string;
+  displayReason: string;
+  excludeAltAccounts: boolean;
 }
 
 export interface GameJoinRestrictionResponse extends GameJoinRestriction {
