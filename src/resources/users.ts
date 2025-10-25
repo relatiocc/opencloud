@@ -1,5 +1,4 @@
 import { HttpClient } from "../http";
-import { v4 as uuidv4 } from "uuid";
 import { OpenCloudError } from "../errors";
 import type {
   AssetQuotasPage,
@@ -336,7 +335,7 @@ export class Users {
     body: GameJoinRestriction,
     updateMask?: string,
   ): Promise<UserRestrictionResponse> {
-    const idempotencyKey = uuidv4();
+    const idempotencyKey = crypto.randomUUID();
     const firstSent = new Date().toISOString();
 
     if (updateMask && updateMask !== "game_join_restriction") {

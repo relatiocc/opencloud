@@ -65,8 +65,5 @@
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.1",
     "vitest": "^3.2.4"
-  },
-  "dependencies": {
-    "uuid": "^13.0.0"
   }
 }
