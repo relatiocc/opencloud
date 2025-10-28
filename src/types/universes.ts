@@ -63,11 +63,14 @@ export interface SpeechAssetBody {
 
 export interface GameJoinRestriction {
   active: boolean;
-  startTime: string;
   duration: string;
   privateReason: string;
   displayReason: string;
   excludeAltAccounts: boolean;
+}
+
+export interface GameJoinRestrictionResponse extends GameJoinRestriction {
+  startTime: string;
   inherited: boolean;
 }
 
@@ -75,10 +78,24 @@ export interface UserRestriction {
   path: string;
   updateTime: string;
   user: string;
-  gameJoinRestriction: GameJoinRestriction;
+  gameJoinRestriction: GameJoinRestrictionResponse;
+}
+
+export interface UserRestrictionLog extends GameJoinRestriction {
+  user: string;
+  place: string;
+  moderator: {
+    robloxUser: string;
+  };
+  createTime: string;
+  startTime: string;
+  restrictionType: {
+    gameJoinRestriction: object;
+  };
 }
 
 export type UserRestrictionPage = Page<UserRestriction, "userRestrictions">;
+export type UserRestrictionLogPage = Page<UserRestrictionLog, "logs">;
 export type Owner = "user" | "group";
 export type Visibility = "VISIBILITY_UNSPECIFIED" | "PUBLIC" | "PRIVATE";
 export type AgeRating =
