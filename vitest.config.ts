@@ -10,7 +10,8 @@ export default defineConfig({
       reporter: ["text", "lcov"],
       reportsDirectory: "./coverage",
       exclude: [
-        "docs/**",
+        "src/docs/.vitepress/**",
+        "scripts/**",
         "coverage/**",
         "dist/**",
         "node_modules/**",
