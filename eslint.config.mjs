@@ -4,7 +4,12 @@ import tseslint from "typescript-eslint";
 
 export default defineConfig([
   {
-    ignores: ["docs/**", "coverage/**", "dist/**", "node_modules/**"],
+    ignores: [
+      "src/docs/.vitepress/**",
+      "coverage/**",
+      "dist/**",
+      "node_modules/**",
+    ],
   },
   js.configs.recommended,
   tseslint.configs.recommended,
@@ -16,6 +21,29 @@ export default defineConfig([
     },
     rules: {
       "no-console": "off",
+    },
+  },
+  {
+    files: ["scripts/**/*.mjs"],
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
+      globals: {
+        console: "readonly",
+        process: "readonly",
+        __dirname: "readonly",
+        __filename: "readonly",
+      },
+    },
+    rules: {
+      "no-console": "off",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+        },
+      ],
     },
   },
 ]);

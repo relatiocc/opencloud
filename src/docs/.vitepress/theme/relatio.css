@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+:root {
+  --vp-font-family-base: 'Plus Jakarta Sans', sans-serif;
+
+  --vp-sidebar-bg-color: #f9f9f9;
+  --vp-c-bg: #ffffff;
+  --vp-c-bg-soft: #f6f6f7;
+  --vp-c-bg-alt: #f0f0f1;
+  --vp-c-brand-1: #30BCB5;
+  --vp-code-block-bg: #f6f6f7;
+
+  --vp-button-alt-bg: #f6f6f7;
+  --vp-button-alt-text: #476582;
+  --vp-button-alt-hover-text: #476582;
+  --vp-button-alt-hover-bg: #e8e8e9;
+
+  --vp-button-brand-bg: #30BCB5;
+  --vp-button-brand-text: #fff;
+  --vp-button-brand-hover-text: #fff;
+  --vp-button-brand-hover-bg: #22a9a3;
+
+  --vp-home-hero-name-color: #30BCB5;
+  --vp-home-hero-image-background-image: linear-gradient(90deg, rgba(48, 188, 181, 0.6) 0%, rgba(22, 245, 234, 0.6) 100%);
+  --vp-home-hero-image-filter: blur(246px);
+}
+
+.dark {
+  --vp-sidebar-bg-color: #030a0aff;
+  --vp-c-bg: #030a0aff;
+  --vp-c-bg-soft: #0a1b1bff;
+  --vp-c-bg-alt: #061313ff;
+  --vp-c-brand-1: #30BCB5;
+  --vp-code-block-bg: #0a1b1bff;
+
+  --vp-button-alt-bg: #0d2222ff;
+  --vp-button-alt-text: #fff;
+  --vp-button-alt-hover-text: #fff;
+  --vp-button-alt-hover-bg: #144040ff;
+
+  --vp-button-brand-bg: #30BCB5;
+  --vp-button-brand-text: #fff;
+  --vp-button-brand-hover-text: #fff;
+  --vp-button-brand-hover-bg: #22a9a3;
+
+  --vp-home-hero-name-color: #30BCB5;
+  --vp-home-hero-image-background-image: linear-gradient(90deg,rgba(48, 188, 181, 1) 0%, rgba(22, 245, 234, 1) 100%);
+  --vp-home-hero-image-filter: blur(246px);
+}

@@ -1,30 +1,30 @@
 {
   "$schema": "https://typedoc.org/schema.json",
-  "entryPoints": ["src"],
-  "entryPointStrategy": "resolve",
-  "out": "docs",
+  "entryPoints": ["src/index.ts"],
+  "entryPointStrategy": "expand",
+  "out": "src/docs/api",
+  "plugin": ["typedoc-plugin-markdown"],
   "excludePrivate": true,
   "excludeProtected": false,
   "excludeExternals": true,
-  "readme": "README.md",
+  "readme": "none",
   "name": "@relatiohq/opencloud",
   "sort": ["source-order"],
-  "navigation": {
-    "includeCategories": true,
-    "includeGroups": true
-  },
-  "navigationLinks": {
-    "GitHub": "https://github.com/relatiocc/opencloud",
-    "Discord": "https://relatio.cc/discord"
-  },
   "treatWarningsAsErrors": false,
   "validation": {
     "notExported": false,
     "invalidLink": true,
     "notDocumented": false
   },
-  "visibilityFilters": {},
   "hideGenerator": true,
-  "hostedBaseUrl": "https://opencloud.relatio.cc",
-  "cname": "opencloud.relatio.cc"
+  "hideBreadcrumbs": true,
+  "outputFileStrategy": "members",
+  "membersWithOwnFile": ["Class", "Interface", "TypeAlias", "Function", "Enum"],
+  "flattenOutputFiles": false,
+  "useCodeBlocks": true,
+  "expandObjects": true,
+  "parametersFormat": "table",
+  "enumMembersFormat": "table",
+  "typeDeclarationFormat": "table",
+  "indexFormat": "table"
 }

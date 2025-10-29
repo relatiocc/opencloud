@@ -1,5 +1,7 @@
 node_modules/
 dist/
 coverage/
-docs/
 .env
+src/docs/.vitepress/dist/
+src/docs/.vitepress/cache/
+src/docs/api/
