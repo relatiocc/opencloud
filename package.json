@@ -1,6 +1,6 @@
 {
   "name": "@relatiohq/opencloud",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "description": "Typed SDK for Roblox Open Cloud",
   "type": "module",
   "main": "./dist/index.js",

@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/relatiocc/opencloud/compare/v1.8.0...v1.9.0) (2025-10-31)
+
+
+### Features
+
+* add per-request authentication support with OAuth2 and API key ([b703c63](https://github.com/relatiocc/opencloud/commit/b703c6328ab2a880a012e9a088506e097a34d37d))
+
 # [1.8.0](https://github.com/relatiocc/opencloud/compare/v1.7.0...v1.8.0) (2025-10-23)
 
 
