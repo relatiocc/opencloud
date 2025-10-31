@@ -1,4 +1,5 @@
 import { OpenCloudError, RateLimitError, AuthError } from "./errors";
+import type { AuthConfig } from "./types";
 
 export type Backoff = "exponential" | "fixed";
 
@@ -50,6 +51,8 @@ const parseErrorDetails = async (
  */
 export class HttpClient {
   private fetcher: typeof fetch;
+  /** Optional auth override for per-request authentication */
+  public authOverride?: AuthConfig;
 
   /**
    * Creates a new HttpClient instance.
@@ -109,6 +112,20 @@ export class HttpClient {
       ...this.options.headers,
       ...init.headers,
     });
+
+    if (this.authOverride) {
+      if (this.authOverride.kind === "apiKey") {
+        headers.set("x-api-key", this.authOverride.apiKey);
+      } else {
+        headers.set("authorization", `Bearer ${this.authOverride.accessToken}`);
+      }
+    }
+
+    if (!headers.has("x-api-key") && !headers.has("authorization")) {
+      throw new AuthError(
+        "No authentication provided. Pass an apiKey in OpenCloudConfig or use withAuth() for per-request authentication.",
+      );
+    }
 
     for (let attempt = 0; attempt <= retry.attempts; attempt++) {
       const response = await this.fetcher(url, { ...init, headers });
