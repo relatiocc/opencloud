@@ -8,7 +8,11 @@ const baseUrl = "https://apis.roblox.com";
 describe("HttpClient", () => {
   it("returns parsed JSON on 200", async () => {
     const { fetchMock } = makeFetchMock([{ status: 200, body: { ok: true } }]);
-    const http = new HttpClient({ baseUrl, fetchImpl: fetchMock });
+    const http = new HttpClient({
+      baseUrl,
+      fetchImpl: fetchMock,
+      headers: { "x-api-key": "test-key" },
+    });
 
     const response = await http.request<{ ok: boolean }>("/cloud/v2/ping");
     expect(response.ok).toBe(true);
@@ -52,6 +56,7 @@ describe("HttpClient", () => {
     const http = new HttpClient({
       baseUrl,
       fetchImpl: fetchMock,
+      headers: { "x-api-key": "test-key" },
       retry: { attempts: 3, backoff: "fixed", baseMs: 0 }, // make retry instant for test
     });
 
@@ -68,6 +73,7 @@ describe("HttpClient", () => {
     const http = new HttpClient({
       baseUrl,
       fetchImpl: fetchMock,
+      headers: { "x-api-key": "test-key" },
       retry: { attempts: 1, backoff: "fixed", baseMs: 0 },
     });
 
