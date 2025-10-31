@@ -1,8 +1,12 @@
 # Authentication
 
-The OpenCloud SDK requires a Roblox Open Cloud API key for authentication.
+The OpenCloud SDK supports two authentication methods: API keys and OAuth2 access tokens.
 
-## Getting an API Key
+## API Key Authentication
+
+API keys are best for server-side applications that need to access Roblox resources on behalf of your application.
+
+### Getting an API Key
 
 1. Go to the [Roblox Creator Dashboard](https://create.roblox.com/dashboard/credentials)
 2. Click **Create API Key**
@@ -13,7 +17,7 @@ The OpenCloud SDK requires a Roblox Open Cloud API key for authentication.
 Keep your API key secret! Never commit it to version control or share it publicly.
 :::
 
-## Using the API Key
+### Using the API Key
 
 Pass your API key when creating the OpenCloud client:
 
@@ -23,6 +27,77 @@ import { OpenCloud } from "@relatiohq/opencloud";
 const client = new OpenCloud({
   apiKey: "your-api-key-here"
 });
+```
+
+## OAuth2 Authentication
+
+OAuth2 is ideal for applications that need to access Roblox resources on behalf of individual users. This is commonly used in multi-tenant scenarios where each user has their own access token.
+
+### Per-Request Authentication
+
+You can create a client without default credentials and provide authentication per-request using the `withAuth()` method:
+
+```typescript
+import { OpenCloud } from "@relatiohq/opencloud";
+
+// Create a client without default authentication
+const client = new OpenCloud();
+
+// Use OAuth2 for a specific request
+const userClient = client.withAuth({
+  kind: "oauth2",
+  accessToken: "user-access-token"
+});
+
+const groups = await userClient.groups.listGroupMemberships("123456");
+```
+
+### Multi-Tenant Server Example
+
+This pattern is perfect for backend services that handle requests from multiple users:
+
+```typescript
+import { OpenCloud } from "@relatiohq/opencloud";
+import express from "express";
+
+const app = express();
+const client = new OpenCloud(); // Shared client, no default auth
+
+app.get("/api/my-groups", async (req, res) => {
+  // Get user's access token from request
+  const accessToken = req.headers.authorization?.split(" ")[1];
+
+  // Create scoped client for this user
+  const userClient = client.withAuth({
+    kind: "oauth2",
+    accessToken: accessToken!
+  });
+
+  // Make requests on behalf of the user
+  const memberships = await userClient.groups.listGroupMemberships(req.query.userId);
+  res.json(memberships);
+});
+```
+
+### Overriding Default Authentication
+
+You can also create a client with default authentication and override it per-request:
+
+```typescript
+// Client with default API key
+const client = new OpenCloud({
+  apiKey: "default-api-key"
+});
+
+// Most requests use the default API key
+const group = await client.groups.get("123");
+
+// But you can override with OAuth2 for specific requests
+const userClient = client.withAuth({
+  kind: "oauth2",
+  accessToken: "user-token"
+});
+const userGroups = await userClient.groups.listGroupMemberships("456");
 ```
 
 ## Environment Variables
@@ -52,6 +127,32 @@ import { OpenCloud } from "@relatiohq/opencloud";
 const client = new OpenCloud({
   apiKey: process.env.ROBLOX_API_KEY!
 });
+```
+
+## Authentication Types
+
+The SDK supports two authentication types through the `AuthConfig` type:
+
+### API Key
+
+```typescript
+const auth = {
+  kind: "apiKey",
+  apiKey: "your-api-key"
+};
+
+const client = new OpenCloud().withAuth(auth);
+```
+
+### OAuth2
+
+```typescript
+const auth = {
+  kind: "oauth2",
+  accessToken: "user-access-token"
+};
+
+const client = new OpenCloud().withAuth(auth);
 ```
 
 ## Permissions
