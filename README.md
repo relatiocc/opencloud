@@ -18,17 +18,34 @@ pnpm add @relatiohq/opencloud
 yarn add @relatiohq/opencloud
 ```
 
-## Usage
+## Quick Start
 
 ```typescript
 import { OpenCloud } from "@relatiohq/opencloud";
 
+// With API key authentication
 const client = new OpenCloud({
   apiKey: "your-api-key",
 });
 
-// Use the client
 const user = await client.users.get("123456789");
+```
+
+### Per-Request Authentication (OAuth2)
+
+Perfect for multi-tenant applications:
+
+```typescript
+// Create client without default auth
+const client = new OpenCloud();
+
+// Use different credentials per request
+const userClient = client.withAuth({
+  kind: "oauth2",
+  accessToken: "user-access-token",
+});
+
+const groups = await userClient.groups.listGroupMemberships("123456");
 ```
 
 ## Documentation
@@ -42,6 +59,7 @@ Full API documentation is available at [https://opencloud.relatio.cc](https://op
 - Tree-shakeable exports
 - Lightweight with zero dependencies
 - Automatic retry with exponential backoff
+- Flexible authentication
 
 ## Why Use This SDK?
 
