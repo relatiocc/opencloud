@@ -8,7 +8,8 @@ export default defineConfig({
   lastUpdated: true,
   cleanUrls: true,
   head: [
-    ["link", { rel: "icon", href: "/favicon.ico" }]
+    ["link", { rel: "icon", href: "/favicon.ico" }],
+    ["script", { defer: "true", src: "https://cloud.umami.is/script.js", "data-website-id": "864a35f5-5533-41f6-8e00-a9fbf6e4a53e" }]
   ],
 
   themeConfig: {
