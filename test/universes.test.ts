@@ -499,9 +499,9 @@ describe("Universes", () => {
 
   it("POST /universes/{id}:translateText", async () => {
     const mockResponse: TranslateTextResponse = {
-      sourceLanguageCode: "en",
+      sourceLanguageCode: "en-us",
       translations: {
-        "": "Hola mundo",
+        "es-es": "Hola mundo",
       },
     };
 
