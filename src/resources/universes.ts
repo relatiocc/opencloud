@@ -74,7 +74,7 @@ export class Universes {
     const searchParams = new URLSearchParams();
 
     const fieldMask = buildFieldMask<UniverseBody>(body);
-    searchParams.append("updateMask", fieldMask);
+    searchParams.set("updateMask", fieldMask);
 
     return this.http.request<Universe>(`/cloud/v2/universes/${universeId}`, {
       method: "PATCH",
@@ -108,8 +108,8 @@ export class Universes {
   ): Promise<UserRestrictionPage> {
     const searchParams = new URLSearchParams();
     if (options.maxPageSize)
-      searchParams.append("maxPageSize", options.maxPageSize.toString());
-    if (options.pageToken) searchParams.append("pageToken", options.pageToken);
+      searchParams.set("maxPageSize", options.maxPageSize.toString());
+    if (options.pageToken) searchParams.set("pageToken", options.pageToken);
 
     return this.http.request<UserRestrictionPage>(
       `/cloud/v2/universes/${universeId}/user-restrictions`,
@@ -183,13 +183,13 @@ export class Universes {
   ): Promise<UserRestriction> {
     const searchParams = new URLSearchParams();
 
-    searchParams.append("updateMask", "game_join_restriction");
+    searchParams.set("updateMask", "game_join_restriction");
 
     const idempotencyKey = generateIdempotencyKey();
     const firstSent = new Date().toISOString();
 
-    searchParams.append("idempotencyKey.key", idempotencyKey);
-    searchParams.append("idempotencyKey.firstSent", firstSent);
+    searchParams.set("idempotencyKey.key", idempotencyKey);
+    searchParams.set("idempotencyKey.firstSent", firstSent);
 
     return this.http.request<UserRestriction>(
       `/cloud/v2/universes/${universeId}/user-restrictions/${userRestrictionId}`,
