@@ -516,14 +516,14 @@ describe("Universes", () => {
 
     const body: TranslateTextBody = {
       text: "Hello world",
-      sourceLanguageCode: "",
-      targetLanguageCodes: [""],
+      sourceLanguageCode: "en-us",
+      targetLanguageCodes: ["es-es"],
     };
 
     const result = await openCloud.universes.translateText("123456789", body);
 
-    expect(result.sourceLanguageCode).toBe("en");
-    expect(result.translations[""]).toBe("Hola mundo");
+    expect(result.sourceLanguageCode).toBe("en-us");
+    expect(result.translations["es-es"]).toBe("Hola mundo");
     expect(calls[0]?.url.toString()).toBe(
       `${baseUrl}/cloud/v2/universes/123456789:translateText`,
     );

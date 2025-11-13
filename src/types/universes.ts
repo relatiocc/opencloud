@@ -129,7 +129,7 @@ export interface TranslateTextBody {
 }
 
 export interface TranslateTextResponse {
-  sourceLanguageCode: string;
+  sourceLanguageCode: LanguageCode;
   translations: Partial<Record<LanguageCode, string>>;
 }
 
