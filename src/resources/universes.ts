@@ -2,6 +2,12 @@ import { HttpClient } from "../http";
 import { ListOptions } from "../types";
 import {
   GameJoinRestriction,
+  PublishMessageBody,
+  SpeechAssetBody,
+  SpeechAssetOperation,
+  SpeechAssetResponse,
+  TranslateTextBody,
+  TranslateTextResponse,
   Universe,
   UniverseBody,
   UserRestriction,
@@ -236,6 +242,46 @@ export class Universes {
       {
         method: "GET",
         searchParams,
+      },
+    );
+  }
+
+  async generateSpeechAsset(universeId: string, body: SpeechAssetBody) {
+    const speechOperation = await this.http.request<SpeechAssetOperation>(
+      `/cloud/v2/universes/${universeId}:generateSpeechAsset`,
+      {
+        method: "POST",
+        body: JSON.stringify(body),
+      },
+    );
+
+    return this.http.request<SpeechAssetResponse>(
+      `/assets/v1/${speechOperation.path}`,
+    );
+  }
+
+  async publishMessage(
+    universeId: string,
+    body: PublishMessageBody,
+  ): Promise<void> {
+    return this.http.request<void>(
+      `/cloud/v2/universes/${universeId}:publishMessage`,
+      {
+        method: "POST",
+        body: JSON.stringify(body),
+      },
+    );
+  }
+
+  async translateText(
+    universeId: string,
+    body: TranslateTextBody,
+  ): Promise<TranslateTextResponse> {
+    return this.http.request<TranslateTextResponse>(
+      `/cloud/v2/universes/${universeId}:translateText`,
+      {
+        method: "POST",
+        body: JSON.stringify(body),
       },
     );
   }
