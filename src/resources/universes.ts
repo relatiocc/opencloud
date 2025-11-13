@@ -246,6 +246,32 @@ export class Universes {
     );
   }
 
+  /**
+   * Generates an English speech audio asset from the specified text.
+   *
+   * This endpoint requires the `asset:read` and `asset:write` scopes in addition to the `universe:write` scope.
+   *
+   * @param universeId - The universe ID (numeric string)
+   * @param body - The speech asset generation request body
+   * @returns Promise resolving to the speech asset response
+   * @throws {AuthError} If API key is invalid
+   * @throws {OpenCloudError} If the universeId is invalid or other API error occurs
+   *
+   * @example
+   * ```typescript
+   * const speechAsset = await client.universes.generateSpeechAsset('123456789', {
+   *   text: "Hello, world!",
+   *   speechStyle: {
+   *     voiceId: "rbx_voice_001",
+   *     pitch: 1,
+   *     speed: 1
+   *   }
+   * });
+   * console.log(speechAsset);
+   * ```
+   *
+   * @see https://create.roblox.com/docs/cloud/reference/Universe#Cloud_GenerateSpeechAsset
+   */
   async generateSpeechAsset(universeId: string, body: SpeechAssetBody) {
     const speechOperation = await this.http.request<SpeechAssetOperation>(
       `/cloud/v2/universes/${universeId}:generateSpeechAsset`,
@@ -260,6 +286,26 @@ export class Universes {
     );
   }
 
+  /**
+   * Publishes a message to the universe's live servers.
+   * Servers can consume messages via MessagingService.
+   *
+   * @param universeId The universe ID (numeric string)
+   * @param body The publish message request body
+   * @returns Promise resolving to void
+   * @throws {AuthError} If API key is invalid
+   * @throws {OpenCloudError} If the universeId is invalid or other API error occurs
+   *
+   * @example
+   * ```typescript
+   * await client.universes.publishMessage('123456789', {
+   *   topic: "UpdateAvailable",
+   *   message: "New update has been deployed!"
+   * });
+   * ```
+   *
+   * @see https://create.roblox.com/docs/cloud/reference/Universe#Cloud_PublishUniverseMessage
+   */
   async publishMessage(
     universeId: string,
     body: PublishMessageBody,
@@ -298,6 +344,48 @@ export class Universes {
       },
     );
   }
+
+  /**
+   * Translates the provided text from one language to another.
+   *
+   * The language codes are represented as IETF BCP-47 language tags. The currently supported language codes are:
+   * - English (en-us)
+   * - French (fr-fr)
+   * - Vietnamese (vi-vn)
+   * - Thai (th-th)
+   * - Turkish (tr-tr)
+   * - Russian (ru-ru)
+   * - Spanish (es-es)
+   * - Portuguese (pt-br)
+   * - Korean (ko-kr)
+   * - Japanese (ja-jp)
+   * - Chinese Simplified (zh-cn)
+   * - Chinese Traditional (zh-tw)
+   * - German (de-de)
+   * - Polish (pl-pl)
+   * - Italian (it-it)
+   * - Indonesian (id-id).
+   *
+   * If a source language code is not provided, the API will attempt to auto-detect the source language.
+   *
+   * @param universeId The universe ID (numeric string)
+   * @param body The translate text request body
+   * @returns Promise resolving to the text translation response
+   * @throws {AuthError} If API key is invalid
+   * @throws {OpenCloudError} If the universeId is invalid or other API error occurs
+   *
+   * @example
+   * ```typescript
+   * const translation = await client.universes.translateText('123456789', {
+   *   text: "Hello, world!",
+   *   sourceLanguageCode: "en-us",
+   *   targetLanguageCodes: ["fr-fr", "ja-jp"]
+   * });
+   * console.log(translation);
+   * ```
+   *
+   * @see https://create.roblox.com/docs/cloud/reference/Universe#Cloud_TranslateText
+   */
   async translateText(
     universeId: string,
     body: TranslateTextBody,
