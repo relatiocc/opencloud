@@ -273,6 +273,31 @@ export class Universes {
     );
   }
 
+  /**
+   * Restarts all active servers for a specific universe if and only if a new version of the experience has been published.
+   * Used for releasing experience updates.
+   *
+   * @param universeId The universe ID (numeric string)
+   * @returns Promise resolving to void
+   * @throws {AuthError} If API key is invalid
+   * @throws {OpenCloudError} If the universeId is invalid or other API error occurs
+   *
+   * @example
+   * ```typescript
+   * await client.universes.restartUniverseServers('123456789');
+   * ```
+   *
+   * @see https://create.roblox.com/docs/cloud/reference/Universe#Cloud_RestartUniverseServers
+   */
+  async restartUniverseServers(universeId: string): Promise<void> {
+    return this.http.request<void>(
+      `/cloud/v2/universes/${universeId}:restartServers`,
+      {
+        method: "POST",
+        body: JSON.stringify({}),
+      },
+    );
+  }
   async translateText(
     universeId: string,
     body: TranslateTextBody,
