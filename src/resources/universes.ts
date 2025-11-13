@@ -65,7 +65,7 @@ export class Universes {
    *   voiceChatEnabled: true,
    *   desktopEnabled: true
    * });
-   * console.log(updatedUniverse.voiceChatEnabled); // "true"
+   * console.log(updatedUniverse.voiceChatEnabled); // true
    * ```
    *
    * @see https://create.roblox.com/docs/cloud/reference/universe#Cloud_UpdateUniverse
@@ -137,7 +137,7 @@ export class Universes {
    * console.log(userRestriction);
    * ```
    *
-   * @see https://create.roblox.com/docs/cloud/reference/UserRestriction#Cloud_UpdateUserRestriction__Using_Universes_Places
+   * @see https://create.roblox.com/docs/cloud/reference/UserRestriction#Cloud_GetUserRestriction__Using_Universes
    */
   async getUserRestriction(
     universeId: string,
@@ -218,14 +218,14 @@ export class Universes {
    *
    * @example
    * ```typescript
-   * const userRestriction = await client.universes.listUserRestrictions('123456789', {
+   * const userRestrictionLogs = await client.universes.listUserRestrictionLogs('123456789', {
    *   maxPageSize: 50,
    *   filter: `"user == 'users/123'" && "place == 'places/456'"`
    * });
-   * console.log(userRestriction);
+   * console.log(userRestrictionLogs);
    * ```
    *
-   * @see https://create.roblox.com/docs/cloud/reference/UserRestriction#Cloud_UpdateUserRestriction__Using_Universes_Places
+   * @see https://create.roblox.com/docs/cloud/reference/UserRestriction#Cloud_ListUserRestrictionLogs
    */
   async listUserRestrictionLogs(
     universeId: string,

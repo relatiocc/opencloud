@@ -141,11 +141,12 @@ Translate strings into multiple languages:
 ```typescript
 const translation = await client.universes.translateText("123456789", {
   text: "Welcome to the game!",
-  sourceLanguageCode: "",
-  targetLanguageCodes: [""]
+  sourceLanguageCode: "en-us",
+  targetLanguageCodes: ["es-es", "fr-fr"]
 });
 
-console.log(translation.translations);
+console.log(translation.translations["es-es"]);
+console.log(translation.translations["fr-fr"]);
 ```
 
 ## Generating Speech Assets
