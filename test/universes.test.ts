@@ -478,6 +478,25 @@ describe("Universes", () => {
     expect(calls[0]?.init?.body).toContain("Server maintenance at 3 PM");
   });
 
+  it("POST /universes/{id}:restartServers", async () => {
+    const { fetchMock, calls } = makeFetchMock([
+      { status: 200, body: undefined },
+    ]);
+    const openCloud = new OpenCloud({
+      apiKey: "test-api-key",
+      baseUrl,
+      fetchImpl: fetchMock,
+    });
+
+    await openCloud.universes.restartUniverseServers("123456789");
+
+    expect(calls[0]?.url.toString()).toBe(
+      `${baseUrl}/cloud/v2/universes/123456789:restartServers`,
+    );
+    expect(calls[0]?.init?.method).toBe("POST");
+    expect(calls[0]?.init?.body).toBe("{}");
+  });
+
   it("POST /universes/{id}:translateText", async () => {
     const mockResponse: TranslateTextResponse = {
       sourceLanguageCode: "en",
