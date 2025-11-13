@@ -38,6 +38,7 @@ export default defineConfig({
           items: [
             { text: "Users", link: "/guide/resources/users" },
             { text: "Groups", link: "/guide/resources/groups" },
+            { text: "Universes", link: "/guide/resources/universes" },
           ]
         }
       ],
