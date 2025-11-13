@@ -157,7 +157,7 @@ Create AI-generated speech from text:
 const speechAsset = await client.universes.generateSpeechAsset("123456789", {
   text: "Welcome to the game!",
   speechStyle: {
-    voiceId: "en_us_001",
+    voiceId: "1",
     pitch: 1.0,
     speed: 1.0
   }
@@ -174,7 +174,7 @@ Customize voice characteristics:
 const deepVoice = await client.universes.generateSpeechAsset("123456789", {
   text: "This is a deep voice",
   speechStyle: {
-    voiceId: "en_us_001",
+    voiceId: "1",
     pitch: 0.7,   // Lower pitch
     speed: 0.8    // Slower speed
   }
