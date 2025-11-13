@@ -129,3 +129,4 @@ export type { HttpOptions } from "./http";
 
 export { Users } from "./resources/users";
 export { Groups } from "./resources/groups";
+export { Universes } from "./resources/universes";
