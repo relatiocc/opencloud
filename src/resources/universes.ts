@@ -13,7 +13,7 @@ import {
   UserRestriction,
   UserRestrictionLogPage,
   UserRestrictionPage,
-} from "../types/universes";
+} from "../types";
 import { buildFieldMask } from "../utils/fieldMask";
 import { generateIdempotencyKey } from "../utils/idempotency";
 
