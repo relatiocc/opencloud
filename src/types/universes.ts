@@ -47,9 +47,9 @@ export interface SocialLink {
   uri: string;
 }
 
-export interface SpeechAsset {
-  assetId: string;
-  remainingQuota: number;
+export interface SpeechAssetOperation {
+  path: string;
+  done: boolean;
 }
 
 export interface SpeechAssetBody {
@@ -58,6 +58,29 @@ export interface SpeechAssetBody {
     voiceId: string;
     pitch: number;
     speed: number;
+  };
+}
+
+export interface SpeechAssetResponse extends SpeechAssetOperation {
+  operationId: string;
+  response: {
+    path: string;
+    revisionId: string;
+    revisionCreateTime: string;
+    assetId: string;
+    displayName: string;
+    description: string;
+    assetType: string;
+    creationContext: {
+      creator: {
+        userId?: string;
+        groupId?: string;
+      };
+    };
+    moderationResult: {
+      moderationState: "Reviewing" | "Rejected" | "Approved";
+    };
+    state: string;
   };
 }
 
@@ -94,6 +117,22 @@ export interface UserRestrictionLog extends GameJoinRestriction {
   };
 }
 
+export interface PublishMessageBody {
+  topic: string;
+  message: string;
+}
+
+export interface TranslateTextBody {
+  text: string;
+  sourceLanguageCode: LanguageCode;
+  targetLanguageCodes: LanguageCode[];
+}
+
+export interface TranslateTextResponse {
+  sourceLanguageCode: string;
+  translations: Record<LanguageCode, string>;
+}
+
 export type UserRestrictionPage = Page<UserRestriction, "userRestrictions">;
 export type UserRestrictionLogPage = Page<UserRestrictionLog, "logs">;
 export type Owner = "user" | "group";
@@ -104,3 +143,4 @@ export type AgeRating =
   | "AGE_RATING_9_PLUS"
   | "AGE_RATING_13_PLUS"
   | "AGE_RATING_17_PLUS";
+export type LanguageCode = "";
