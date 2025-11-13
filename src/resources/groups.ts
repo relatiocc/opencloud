@@ -12,7 +12,6 @@ import type {
 
 /**
  * API client for Roblox Group endpoints.
- * Provides methods to retrieve group information, shouts, and group memberships.
  *
  * @see https://create.roblox.com/docs/cloud/reference/Group
  */

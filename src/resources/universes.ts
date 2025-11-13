@@ -19,7 +19,6 @@ import { generateIdempotencyKey } from "../utils/idempotency";
 
 /**
  * API client for Roblox universe endpoints.
- * Provides methods to retrieve universe information, shouts, and universe memberships.
  *
  * @see https://create.roblox.com/docs/cloud/reference/Universe
  */
@@ -32,10 +31,10 @@ export class Universes {
   constructor(private http: HttpClient) {}
 
   /**
-   * Retrieves a universes information by universe ID.
+   * Retrieves a universe's information by universe ID.
    *
    * @param universeId - The unique universe ID (numeric string)
-   * @returns Promise resolving to the universes's data
+   * @returns Promise resolving to the universe's data
    * @throws {AuthError} If API key is invalid
    * @throws {OpenCloudError} If the universe is not found or other API error occurs
    *
@@ -59,7 +58,8 @@ export class Universes {
    * @returns Promise resolving to the updated universe's data
    * @throws {AuthError} If API key is invalid
    * @throws {OpenCloudError} If the universe is not found or other API error occurs
-   * * @example
+   *
+   * @example
    * ```typescript
    * const updatedUniverse = await client.universes.update('123456789', {
    *   voiceChatEnabled: true,
@@ -133,7 +133,7 @@ export class Universes {
    *
    * @example
    * ```typescript
-   * const userRestriction = await client.users.getUserRestriction('123456789', '123456789');
+   * const userRestriction = await client.universes.getUserRestriction('123456789', '123456789');
    * console.log(userRestriction);
    * ```
    *
@@ -165,7 +165,7 @@ export class Universes {
    *
    * @example
    * ```typescript
-   * const userRestrction = await client.users.updateUserRestriction('123456789', '123456789', {
+   * const userRestriction = await client.universes.updateUserRestriction('123456789', '123456789', {
    *   active: true,
    *   duration: "3s",
    *   privateReason: "some private reason",
@@ -218,7 +218,7 @@ export class Universes {
    *
    * @example
    * ```typescript
-   * const userRestriction = await client.users.listUserRestrictions('123456789', {
+   * const userRestriction = await client.universes.listUserRestrictions('123456789', {
    *   maxPageSize: 50,
    *   filter: `"user == 'users/123'" && "place == 'places/456'"`
    * });

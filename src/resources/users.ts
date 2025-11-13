@@ -12,7 +12,6 @@ import type {
 
 /**
  * API client for Roblox Users endpoints.
- * Provides methods to retrieve user information, inventory, and asset quotas.
  *
  * @see https://create.roblox.com/docs/cloud/reference/User
  */
