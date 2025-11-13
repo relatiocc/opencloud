@@ -1,3 +1,22 @@
+# [1.10.0](https://github.com/relatiocc/opencloud/compare/v1.9.0...v1.10.0) (2025-11-13)
+
+
+### Bug Fixes
+
+* **universes:** replace append with set for URLSearchParams ([0235d34](https://github.com/relatiocc/opencloud/commit/0235d34049c151b1da0d8db56b5a5274f95f5423))
+* **universes:** update translation to use LanguageCode and adjust test cases ([b04246d](https://github.com/relatiocc/opencloud/commit/b04246dcaaf5ab29d87a72159e4cc8d70357f471))
+* **universes:** update translations to use Partial<Record> and correct language codes ([009a25b](https://github.com/relatiocc/opencloud/commit/009a25b793774504f50f25b4299351e8e6e62808))
+
+
+### Features
+
+* add Universes API client ([4ba5fd2](https://github.com/relatiocc/opencloud/commit/4ba5fd296a55e1225dbdb6fec28b2abff7541f7a))
+* implement idempotency key generation ([46456c4](https://github.com/relatiocc/opencloud/commit/46456c41044c9160f0c5fd0b21ac6863c6d3c717))
+* **universes:** add restart universe servers endpoint ([ceeb0e1](https://github.com/relatiocc/opencloud/commit/ceeb0e12a66d479ccb390b772f12274d505ee805))
+* **universes:** add speech asset generation, publishing, and translation methods ([bf5d646](https://github.com/relatiocc/opencloud/commit/bf5d6463256e3644cc6f1727e07be876c8214857))
+* **universes:** export Universes resource from index ([d944f85](https://github.com/relatiocc/opencloud/commit/d944f85b668937bcf18cea9836766a68aaffe05f))
+* **universes:** port UserRestriction endpoints from [#3](https://github.com/relatiocc/opencloud/issues/3) ([6a583b5](https://github.com/relatiocc/opencloud/commit/6a583b531a0e41df7e32bc555ad2e335248431c1))
+
 # [1.9.0](https://github.com/relatiocc/opencloud/compare/v1.8.0...v1.9.0) (2025-10-31)
 
 
