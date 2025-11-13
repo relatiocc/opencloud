@@ -130,7 +130,7 @@ export interface TranslateTextBody {
 
 export interface TranslateTextResponse {
   sourceLanguageCode: string;
-  translations: Record<LanguageCode, string>;
+  translations: Partial<Record<LanguageCode, string>>;
 }
 
 export type UserRestrictionPage = Page<UserRestriction, "userRestrictions">;
@@ -143,4 +143,21 @@ export type AgeRating =
   | "AGE_RATING_9_PLUS"
   | "AGE_RATING_13_PLUS"
   | "AGE_RATING_17_PLUS";
-export type LanguageCode = "";
+export type LanguageCode =
+  | "en-us"
+  | "fr-fr"
+  | "vi-vn"
+  | "th-th"
+  | "tr-tr"
+  | "ru-ru"
+  | "es-es"
+  | "pt-br"
+  | "ko-kr"
+  | "ja-jp"
+  | "zh-cn"
+  | "zh-tw"
+  | "de-de"
+  | "pl-pl"
+  | "it-it"
+  | "id-id"
+  | "";
