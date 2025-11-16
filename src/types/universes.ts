@@ -86,7 +86,7 @@ export interface SpeechAssetResponse extends SpeechAssetOperation {
 
 export interface GameJoinRestriction {
   active: boolean;
-  duration: string;
+  duration?: string;
   privateReason: string;
   displayReason: string;
   excludeAltAccounts: boolean;
