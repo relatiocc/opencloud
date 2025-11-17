@@ -1,3 +1,10 @@
+## [1.10.1](https://github.com/relatiocc/opencloud/compare/v1.10.0...v1.10.1) (2025-11-17)
+
+
+### Bug Fixes
+
+* **universes:** make GameJoinRestriction duration optional ([5fc1c32](https://github.com/relatiocc/opencloud/commit/5fc1c32ff48a2c17799a359c7bfe73fd3337f8d1)), closes [#7](https://github.com/relatiocc/opencloud/issues/7)
+
 # [1.10.0](https://github.com/relatiocc/opencloud/compare/v1.9.0...v1.10.0) (2025-11-13)
 
 
