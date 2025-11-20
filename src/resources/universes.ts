@@ -195,7 +195,7 @@ export class Universes {
       `/cloud/v2/universes/${universeId}/user-restrictions/${userRestrictionId}`,
       {
         method: "PATCH",
-        body: JSON.stringify(body),
+        body: JSON.stringify({ gameJoinRestriction: body }),
         searchParams,
       },
     );
