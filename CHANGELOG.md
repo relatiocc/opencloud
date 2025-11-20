@@ -1,3 +1,10 @@
+## [1.10.2](https://github.com/relatiocc/opencloud/compare/v1.10.1...v1.10.2) (2025-11-20)
+
+
+### Bug Fixes
+
+* **universes:** update PATCH request body to include gameJoinRestriction ([#8](https://github.com/relatiocc/opencloud/issues/8)) ([638a4e7](https://github.com/relatiocc/opencloud/commit/638a4e70702d4c3321ac5cda6cc4313806274bab))
+
 ## [1.10.1](https://github.com/relatiocc/opencloud/compare/v1.10.0...v1.10.1) (2025-11-17)
 
 
