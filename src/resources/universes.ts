@@ -1,7 +1,6 @@
 import { HttpClient } from "../http";
-import { ListOptions } from "../types";
+import { ListOptions, UpdateUserRestrictionOptions } from "../types";
 import {
-  GameJoinRestriction,
   PublishMessageBody,
   SpeechAssetBody,
   SpeechAssetOperation,
@@ -156,33 +155,37 @@ export class Universes {
    *
    * *Requires `universe.user-restriction:write` scope.*
    *
-   * @param universeId - The universe ID (numeric string)
    * @param userRestrictionId - The user ID (numeric string)
-   * @param body - The user restriction data to update
-   * @param placeId - The place ID (optional) (numeric string)
+   * @param options - The options for updating the user restriction
+   * @param options.universeId - The universe ID (numeric string)
+   * @param options.placeId - The place ID (optional) (numeric string)
+   * @param options.body - The user restriction data to update
    * @returns Promise resolving to the user restriction response
    * @throws {AuthError} If API key is invalid
    * @throws {OpenCloudError} If an API error occurs
    *
    * @example
    * ```typescript
-   * const userRestriction = await client.universes.updateUserRestriction('123456789', '123456789', {
-   *   active: true,
-   *   duration: "3s",
-   *   privateReason: "some private reason",
-   *   displayReason: "some display reason",
-   *   excludeAltAccounts: true
+   * const userRestriction = await client.universes.updateUserRestriction('1210019099', {
+   *  universeId: '1234',
+   *  placeId: '5678',
+   *  body: {
+   *    active: true,
+   *    duration: "3s",
+   *    privateReason: "some private reason",
+   *    displayReason: "some display reason",
+   *    excludeAltAccounts: true
+   *  }
    * });
    * ```
    *
    * @see https://create.roblox.com/docs/cloud/reference/UserRestriction#Cloud_UpdateUserRestriction__Using_Universes_Places
    */
   async updateUserRestriction(
-    universeId: string,
     userRestrictionId: string,
-    body: GameJoinRestriction,
-    placeId?: string,
+    options: UpdateUserRestrictionOptions,
   ): Promise<UserRestriction> {
+    const { body, universeId, placeId } = options;
     const searchParams = new URLSearchParams();
 
     searchParams.set("updateMask", "game_join_restriction");

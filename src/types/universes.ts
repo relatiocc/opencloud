@@ -84,6 +84,12 @@ export interface SpeechAssetResponse extends SpeechAssetOperation {
   };
 }
 
+export interface UpdateUserRestrictionOptions {
+  universeId: string;
+  placeId?: string;
+  body: GameJoinRestriction;
+}
+
 export interface GameJoinRestriction {
   active: boolean;
   duration?: string;
