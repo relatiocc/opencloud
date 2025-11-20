@@ -159,6 +159,7 @@ export class Universes {
    * @param universeId - The universe ID (numeric string)
    * @param userRestrictionId - The user ID (numeric string)
    * @param body - The user restriction data to update
+   * @param placeId - The place ID (optional) (numeric string)
    * @returns Promise resolving to the user restriction response
    * @throws {AuthError} If API key is invalid
    * @throws {OpenCloudError} If an API error occurs
@@ -180,6 +181,7 @@ export class Universes {
     universeId: string,
     userRestrictionId: string,
     body: GameJoinRestriction,
+    placeId?: string,
   ): Promise<UserRestriction> {
     const searchParams = new URLSearchParams();
 
@@ -191,14 +193,20 @@ export class Universes {
     searchParams.set("idempotencyKey.key", idempotencyKey);
     searchParams.set("idempotencyKey.firstSent", firstSent);
 
-    return this.http.request<UserRestriction>(
-      `/cloud/v2/universes/${universeId}/user-restrictions/${userRestrictionId}`,
-      {
-        method: "PATCH",
-        body: JSON.stringify({ gameJoinRestriction: body }),
-        searchParams,
-      },
-    );
+    let resourcePath = `/cloud/v2/universes/${universeId}`;
+
+    // This resource has two different paths, one for universe-level restrictions, and another for place-level restrictions
+    if (placeId) {
+      resourcePath += `/places/${placeId}`;
+    }
+
+    resourcePath += `/user-restrictions/${userRestrictionId}`;
+
+    return this.http.request<UserRestriction>(resourcePath.toString(), {
+      method: "PATCH",
+      body: JSON.stringify({ gameJoinRestriction: body }),
+      searchParams,
+    });
   }
 
   /**
