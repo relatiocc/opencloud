@@ -294,9 +294,12 @@ describe("Universes", () => {
     };
 
     const result = await openCloud.universes.updateUserRestriction(
-      "123456789",
       "111111111",
-      body,
+      {
+        universeId: "123456789",
+        placeId: "987654321",
+        body,
+      },
     );
 
     expect(result.user).toBe("users/111111111");
@@ -305,7 +308,7 @@ describe("Universes", () => {
 
     const url = calls[0]?.url.toString();
     expect(url).toContain(
-      `${baseUrl}/cloud/v2/universes/123456789/user-restrictions/111111111`,
+      `${baseUrl}/cloud/v2/universes/123456789/places/987654321/user-restrictions/111111111`,
     );
     expect(url).toContain("updateMask=game_join_restriction");
     expect(url).toContain("idempotencyKey.key=");
