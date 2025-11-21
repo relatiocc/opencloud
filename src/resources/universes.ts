@@ -27,7 +27,7 @@ export class Universes {
    *
    * @param http - HTTP client for making API requests
    */
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    * Retrieves a universe's information by universe ID.
@@ -204,6 +204,9 @@ export class Universes {
     }
 
     resourcePath += `/user-restrictions/${userRestrictionId}`;
+
+    // API returns 400 if duration is set as an empty string
+    if (body.duration && body.duration === "") body.duration = undefined;
 
     return this.http.request<UserRestriction>(resourcePath.toString(), {
       method: "PATCH",
