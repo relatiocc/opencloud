@@ -186,8 +186,16 @@ export class Universes {
     options: UpdateUserRestrictionOptions,
   ): Promise<UserRestriction> {
     const { body, universeId, placeId } = options;
-    const searchParams = new URLSearchParams();
+    const payload = { ...body };
 
+    // API returns 400 if duration is set as an empty string
+    if (payload.duration == "") {
+      console.log(payload);
+      payload.duration = undefined;
+      console.log(payload);
+    }
+
+    const searchParams = new URLSearchParams();
     searchParams.set("updateMask", "game_join_restriction");
 
     const idempotencyKey = generateIdempotencyKey();
@@ -205,12 +213,9 @@ export class Universes {
 
     resourcePath += `/user-restrictions/${userRestrictionId}`;
 
-    // API returns 400 if duration is set as an empty string
-    if (body.duration && body.duration === "") body.duration = undefined;
-
     return this.http.request<UserRestriction>(resourcePath.toString(), {
       method: "PATCH",
-      body: JSON.stringify({ gameJoinRestriction: body }),
+      body: JSON.stringify({ gameJoinRestriction: payload }),
       searchParams,
     });
   }

@@ -267,7 +267,6 @@ describe("Universes", () => {
       user: "users/111111111",
       gameJoinRestriction: {
         active: true,
-        duration: "7200s",
         privateReason: "Updated reason",
         displayReason: "Updated display reason",
         excludeAltAccounts: false,
@@ -287,7 +286,7 @@ describe("Universes", () => {
 
     const body: GameJoinRestriction = {
       active: true,
-      duration: "7200s",
+      duration: "",
       privateReason: "Updated reason",
       displayReason: "Updated display reason",
       excludeAltAccounts: false,
@@ -304,7 +303,7 @@ describe("Universes", () => {
 
     expect(result.user).toBe("users/111111111");
     expect(result.gameJoinRestriction.active).toBe(true);
-    expect(result.gameJoinRestriction.duration).toBe("7200s");
+    expect(result.gameJoinRestriction.duration).toBe(undefined);
 
     const url = calls[0]?.url.toString();
     expect(url).toContain(
