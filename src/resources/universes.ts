@@ -27,7 +27,7 @@ export class Universes {
    *
    * @param http - HTTP client for making API requests
    */
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    * Retrieves a universe's information by universe ID.
