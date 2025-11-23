@@ -1,7 +1,6 @@
 import { HttpClient } from "../http";
-import { ListOptions } from "../types";
+import { ListOptions, UpdateUserRestrictionOptions } from "../types";
 import {
-  GameJoinRestriction,
   PublishMessageBody,
   SpeechAssetBody,
   SpeechAssetOperation,
@@ -157,20 +156,26 @@ export class Universes {
    * *Requires `universe.user-restriction:write` scope.*
    *
    * @param universeId - The universe ID (numeric string)
-   * @param userRestrictionId - The user ID (numeric string)
-   * @param body - The user restriction data to update
+   * @param options - The options for updating the user restriction
+   * @param options.userRestrictionId - The user ID (numeric string)
+   * @param options.placeId - The place ID (optional) (numeric string)
+   * @param options.body - The user restriction data to update
    * @returns Promise resolving to the user restriction response
    * @throws {AuthError} If API key is invalid
    * @throws {OpenCloudError} If an API error occurs
    *
    * @example
    * ```typescript
-   * const userRestriction = await client.universes.updateUserRestriction('123456789', '123456789', {
-   *   active: true,
-   *   duration: "3s",
-   *   privateReason: "some private reason",
-   *   displayReason: "some display reason",
-   *   excludeAltAccounts: true
+   * const userRestriction = await client.universes.updateUserRestriction('123456789', {
+   *  userRestrictionId: '1210019099',
+   *  placeId: '5678',
+   *  body: {
+   *    active: true,
+   *    duration: "3s",
+   *    privateReason: "some private reason",
+   *    displayReason: "some display reason",
+   *    excludeAltAccounts: true
+   *  }
    * });
    * ```
    *
@@ -178,11 +183,12 @@ export class Universes {
    */
   async updateUserRestriction(
     universeId: string,
-    userRestrictionId: string,
-    body: GameJoinRestriction,
+    options: UpdateUserRestrictionOptions,
   ): Promise<UserRestriction> {
-    const searchParams = new URLSearchParams();
+    const { body, userRestrictionId, placeId } = options;
+    body.duration = body.duration === "" ? undefined : body.duration;
 
+    const searchParams = new URLSearchParams();
     searchParams.set("updateMask", "game_join_restriction");
 
     const idempotencyKey = generateIdempotencyKey();
@@ -191,14 +197,16 @@ export class Universes {
     searchParams.set("idempotencyKey.key", idempotencyKey);
     searchParams.set("idempotencyKey.firstSent", firstSent);
 
-    return this.http.request<UserRestriction>(
-      `/cloud/v2/universes/${universeId}/user-restrictions/${userRestrictionId}`,
-      {
-        method: "PATCH",
-        body: JSON.stringify({ gameJoinRestriction: body }),
-        searchParams,
-      },
-    );
+    let resourcePath = `/cloud/v2/universes/${universeId}`;
+    // This resource has two different paths, one for universe-level restrictions, and another for place-level restrictions
+    if (placeId) resourcePath += `/places/${placeId}`;
+    resourcePath += `/user-restrictions/${userRestrictionId}`;
+
+    return this.http.request<UserRestriction>(resourcePath, {
+      method: "PATCH",
+      body: JSON.stringify({ gameJoinRestriction: body }),
+      searchParams,
+    });
   }
 
   /**

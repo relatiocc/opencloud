@@ -267,7 +267,6 @@ describe("Universes", () => {
       user: "users/111111111",
       gameJoinRestriction: {
         active: true,
-        duration: "7200s",
         privateReason: "Updated reason",
         displayReason: "Updated display reason",
         excludeAltAccounts: false,
@@ -287,7 +286,7 @@ describe("Universes", () => {
 
     const body: GameJoinRestriction = {
       active: true,
-      duration: "7200s",
+      duration: "",
       privateReason: "Updated reason",
       displayReason: "Updated display reason",
       excludeAltAccounts: false,
@@ -295,17 +294,20 @@ describe("Universes", () => {
 
     const result = await openCloud.universes.updateUserRestriction(
       "123456789",
-      "111111111",
-      body,
+      {
+        userRestrictionId: "111111111",
+        placeId: "987654321",
+        body,
+      },
     );
 
     expect(result.user).toBe("users/111111111");
     expect(result.gameJoinRestriction.active).toBe(true);
-    expect(result.gameJoinRestriction.duration).toBe("7200s");
+    expect(result.gameJoinRestriction.duration).toBe(undefined);
 
     const url = calls[0]?.url.toString();
     expect(url).toContain(
-      `${baseUrl}/cloud/v2/universes/123456789/user-restrictions/111111111`,
+      `${baseUrl}/cloud/v2/universes/123456789/places/987654321/user-restrictions/111111111`,
     );
     expect(url).toContain("updateMask=game_join_restriction");
     expect(url).toContain("idempotencyKey.key=");
