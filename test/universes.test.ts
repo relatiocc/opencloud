@@ -293,9 +293,9 @@ describe("Universes", () => {
     };
 
     const result = await openCloud.universes.updateUserRestriction(
-      "111111111",
+      "123456789",
       {
-        universeId: "123456789",
+        userRestrictionId: "111111111",
         placeId: "987654321",
         body,
       },

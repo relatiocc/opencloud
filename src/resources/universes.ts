@@ -155,9 +155,9 @@ export class Universes {
    *
    * *Requires `universe.user-restriction:write` scope.*
    *
-   * @param userRestrictionId - The user ID (numeric string)
+   * @param universeId - The universe ID (numeric string)
    * @param options - The options for updating the user restriction
-   * @param options.universeId - The universe ID (numeric string)
+   * @param options.userRestrictionId - The user ID (numeric string)
    * @param options.placeId - The place ID (optional) (numeric string)
    * @param options.body - The user restriction data to update
    * @returns Promise resolving to the user restriction response
@@ -166,8 +166,8 @@ export class Universes {
    *
    * @example
    * ```typescript
-   * const userRestriction = await client.universes.updateUserRestriction('1210019099', {
-   *  universeId: '1234',
+   * const userRestriction = await client.universes.updateUserRestriction('123456789', {
+   *  userRestrictionId: '1210019099',
    *  placeId: '5678',
    *  body: {
    *    active: true,
@@ -182,18 +182,11 @@ export class Universes {
    * @see https://create.roblox.com/docs/cloud/reference/UserRestriction#Cloud_UpdateUserRestriction__Using_Universes_Places
    */
   async updateUserRestriction(
-    userRestrictionId: string,
+    universeId: string,
     options: UpdateUserRestrictionOptions,
   ): Promise<UserRestriction> {
-    const { body, universeId, placeId } = options;
-    const payload = { ...body };
-
-    // API returns 400 if duration is set as an empty string
-    if (payload.duration == "") {
-      console.log(payload);
-      payload.duration = undefined;
-      console.log(payload);
-    }
+    const { body, userRestrictionId, placeId } = options;
+    body.duration = body.duration === "" ? undefined : body.duration;
 
     const searchParams = new URLSearchParams();
     searchParams.set("updateMask", "game_join_restriction");
@@ -205,17 +198,13 @@ export class Universes {
     searchParams.set("idempotencyKey.firstSent", firstSent);
 
     let resourcePath = `/cloud/v2/universes/${universeId}`;
-
     // This resource has two different paths, one for universe-level restrictions, and another for place-level restrictions
-    if (placeId) {
-      resourcePath += `/places/${placeId}`;
-    }
-
+    if (placeId) resourcePath += `/places/${placeId}`;
     resourcePath += `/user-restrictions/${userRestrictionId}`;
 
-    return this.http.request<UserRestriction>(resourcePath.toString(), {
+    return this.http.request<UserRestriction>(resourcePath, {
       method: "PATCH",
-      body: JSON.stringify({ gameJoinRestriction: payload }),
+      body: JSON.stringify({ gameJoinRestriction: body }),
       searchParams,
     });
   }
